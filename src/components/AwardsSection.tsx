@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Trophy, Award, Gift, TrendingUp, Code, Heart, GraduationCap } from "lucide-react";
+import { Trophy, Award, Gift, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const prizes = [
@@ -11,7 +11,7 @@ const prizes = [
     description: "The ultimate champion takes home the grand prize. Recognition, glory, and rewards await.",
     icon: Trophy,
     color: "primary",
-    size: "large"
+    rank: "1ST"
   },
   { 
     amount: "₹15,000", 
@@ -19,31 +19,7 @@ const prizes = [
     description: "Excellence deserves recognition. Second place earns significant rewards.",
     icon: Award,
     color: "primary",
-    size: "large"
-  },
-  { 
-    amount: "Special", 
-    title: "FinTech Champion", 
-    description: "Best innovation in financial technology. Leading the future of finance.",
-    icon: TrendingUp,
-    color: "gotham-blue",
-    size: "medium"
-  },
-  { 
-    amount: "Special", 
-    title: "HealthTech Champion", 
-    description: "Revolutionary healthcare solutions. Making a difference in medical technology.",
-    icon: Heart,
-    color: "gotham-blue",
-    size: "medium"
-  },
-  { 
-    amount: "Special", 
-    title: "EdTech Champion", 
-    description: "Transforming education through technology. Empowering the next generation.",
-    icon: GraduationCap,
-    color: "gotham-blue",
-    size: "medium"
+    rank: "2ND"
   },
   { 
     amount: "Swags", 
@@ -51,7 +27,7 @@ const prizes = [
     description: "Exclusive merchandise, t-shirts, stickers, and goodies for everyone who participates.",
     icon: Gift,
     color: "primary",
-    size: "small"
+    rank: null
   },
 ];
 
@@ -61,19 +37,53 @@ export const AwardsSection = () => {
 
   return (
     <section id="prizes" className="py-32 relative overflow-hidden" ref={ref}>
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[400px] h-[800px] bg-primary/5 blur-[200px]" />
-      <div className="absolute right-0 top-1/4 w-[300px] h-[600px] bg-gotham-blue/10 blur-[150px]" />
+      {/* Background effects */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+      <div className="absolute left-1/2 top-0 -translate-x-1/2 w-[800px] h-[600px] bg-primary/10 blur-[200px] rounded-full" />
       
-      <div className="container mx-auto px-6">
+      {/* Animated particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-primary/40 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -50, 0],
+              opacity: [0.2, 0.8, 0.2],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
+      
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div 
           className="mb-20 text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <span className="text-primary font-body text-sm tracking-[0.3em] mb-4 block uppercase">
-            The Rewards
-          </span>
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={isInView ? { scale: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full"
+          >
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-primary font-body text-sm tracking-[0.2em] uppercase">
+              The Rewards
+            </span>
+          </motion.div>
+          
           <h2 className="text-5xl md:text-7xl lg:text-8xl font-display mb-6">
             PRIZES &amp;
             <br />
@@ -85,79 +95,158 @@ export const AwardsSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-          {prizes.map((prize, index) => {
+        {/* Main prizes - Grand Winner & Runner Up */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-8">
+          {prizes.slice(0, 2).map((prize, index) => {
             const Icon = prize.icon;
-            const isLarge = prize.size === "large";
-            const isMedium = prize.size === "medium";
+            const isFirst = index === 0;
             
             return (
               <motion.div
                 key={prize.title}
-                initial={{ opacity: 0, y: 40 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={cn(
-                  "group relative overflow-hidden bg-card/60 backdrop-blur-sm border-2 rounded-lg p-8 hover:bg-card/80 transition-all duration-500 hover-lift",
-                  prize.color === "primary" ? "border-primary/30 hover:border-primary/60" : "border-gotham-blue/30 hover:border-gotham-blue/60",
-                  isLarge && "md:col-span-1"
-                )}
+                initial={{ opacity: 0, y: 50, rotateX: -10 }}
+                animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                className="group relative"
               >
-                {/* Background Gradient */}
                 <div className={cn(
-                  "absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500",
-                  prize.color === "primary" ? "bg-gradient-to-br from-primary/5 to-transparent" : "bg-gradient-to-br from-gotham-blue/5 to-transparent"
-                )} />
-                
-                {/* Content */}
-                <div className="relative z-10">
-                  <div className="flex items-start justify-between mb-6">
-                    <div className={cn(
-                      "p-4 border-2 rounded-lg",
-                      prize.color === "primary" ? "bg-primary/10 border-primary/40" : "bg-gotham-blue/10 border-gotham-blue/40"
-                    )}>
-                      <Icon className={cn(
-                        "w-8 h-8",
-                        prize.color === "primary" ? "text-primary" : "text-gotham-blue"
-                      )} />
+                  "relative overflow-hidden rounded-2xl p-8 md:p-10 transition-all duration-500",
+                  "bg-gradient-to-br from-card/90 via-card/70 to-card/50 backdrop-blur-md",
+                  "border-2 hover:border-primary/80",
+                  isFirst ? "border-primary/50" : "border-primary/30"
+                )}>
+                  {/* Glowing background on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Rank badge */}
+                  {prize.rank && (
+                    <motion.div 
+                      className="absolute -top-3 -right-3 w-16 h-16 bg-primary flex items-center justify-center rotate-12 group-hover:rotate-0 transition-transform duration-500"
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <span className="font-display text-primary-foreground text-xl font-bold -rotate-12 group-hover:rotate-0 transition-transform duration-500">
+                        {prize.rank}
+                      </span>
+                    </motion.div>
+                  )}
+                  
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <div className="flex items-start gap-6 mb-6">
+                      <motion.div 
+                        className="p-4 bg-primary/20 border-2 border-primary/50 rounded-xl group-hover:bg-primary/30 transition-colors duration-300"
+                        whileHover={{ rotate: [0, -10, 10, 0] }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <Icon className="w-10 h-10 text-primary" />
+                      </motion.div>
+                      
+                      <div className="flex-1">
+                        <motion.div 
+                          className="text-5xl md:text-6xl font-display text-primary mb-1"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={isInView ? { opacity: 1, x: 0 } : {}}
+                          transition={{ duration: 0.6, delay: 0.3 + index * 0.2 }}
+                        >
+                          {prize.amount}
+                        </motion.div>
+                        <div className="text-xs text-muted-foreground font-body tracking-[0.3em] uppercase">
+                          Cash Prize
+                        </div>
+                      </div>
                     </div>
                     
-                    <div className="text-right">
-                      <div className={cn(
-                        "text-3xl md:text-4xl font-display font-bold tracking-wider",
-                        prize.color === "primary" ? "text-primary" : "text-gotham-blue"
-                      )}>
-                        {prize.amount}
-                      </div>
-                      {isLarge && (
-                        <div className="text-xs text-muted-foreground font-body tracking-wider mt-1">
-                          CASH PRIZE
-                        </div>
-                      )}
-                    </div>
+                    <h3 className="text-2xl md:text-3xl font-display mb-4 tracking-wide group-hover:text-primary transition-colors duration-300">
+                      {prize.title}
+                    </h3>
+                    
+                    <p className="text-foreground/70 font-body tracking-wide leading-relaxed">
+                      {prize.description}
+                    </p>
                   </div>
-                  
-                  <h3 className={cn(
-                    "font-display mb-3 tracking-wide",
-                    isLarge ? "text-2xl md:text-3xl" : isMedium ? "text-xl md:text-2xl" : "text-lg md:text-xl"
-                  )}>
-                    {prize.title}
-                  </h3>
-                  
-                  <p className="text-foreground/70 font-body tracking-wide leading-relaxed">
-                    {prize.description}
-                  </p>
-                </div>
 
-                {/* Hover Line Effect */}
-                <div className={cn(
-                  "absolute bottom-0 left-0 right-0 h-1 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500",
-                  prize.color === "primary" ? "bg-gradient-to-r from-primary to-primary/50" : "bg-gradient-to-r from-gotham-blue to-gotham-blue/50"
-                )} />
+                  {/* Bottom accent line */}
+                  <motion.div 
+                    className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary/80 to-primary/30"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ duration: 0.5 }}
+                    style={{ transformOrigin: "left" }}
+                  />
+                  
+                  {/* Corner accents */}
+                  <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-primary/0 group-hover:border-primary/60 transition-colors duration-500" />
+                  <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-primary/0 group-hover:border-primary/60 transition-colors duration-500" />
+                </div>
               </motion.div>
             );
           })}
         </div>
+
+        {/* Swags card - full width */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="max-w-5xl mx-auto"
+        >
+          <div className="group relative overflow-hidden rounded-2xl p-8 md:p-10 bg-gradient-to-r from-card/80 via-card/60 to-card/80 backdrop-blur-md border-2 border-primary/30 hover:border-primary/60 transition-all duration-500">
+            {/* Animated gradient background */}
+            <motion.div 
+              className="absolute inset-0 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5"
+              animate={{ 
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] 
+              }}
+              transition={{ 
+                duration: 5, 
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              style={{ backgroundSize: "200% 100%" }}
+            />
+            
+            <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 md:gap-10">
+              <motion.div 
+                className="p-5 bg-primary/20 border-2 border-primary/50 rounded-xl"
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 4, repeat: Infinity }}
+              >
+                <Gift className="w-12 h-12 text-primary" />
+              </motion.div>
+              
+              <div className="flex-1 text-center md:text-left">
+                <div className="text-4xl md:text-5xl font-display text-primary mb-2">
+                  Swags
+                </div>
+                <h3 className="text-xl md:text-2xl font-display mb-3 tracking-wide">
+                  All Participants
+                </h3>
+                <p className="text-foreground/70 font-body tracking-wide leading-relaxed max-w-2xl">
+                  Exclusive merchandise, t-shirts, stickers, and goodies for everyone who participates. 
+                  Walk away with awesome swag regardless of the outcome!
+                </p>
+              </div>
+              
+              <motion.div 
+                className="hidden md:flex items-center gap-3"
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : {}}
+                transition={{ delay: 0.6 }}
+              >
+                {["👕", "🎁", "✨"].map((emoji, i) => (
+                  <motion.span 
+                    key={i}
+                    className="text-4xl"
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                  >
+                    {emoji}
+                  </motion.span>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
