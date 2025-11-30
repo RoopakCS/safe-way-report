@@ -196,7 +196,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage }: { ma
   useEffect(() => {
     const timer = setTimeout(() => {
       if (fixed.current) {
-        fixed.current.setType('fixed');
+        //fixed.current.setType('fixed');
         fixed.current.setTranslation({ x: 0, y: 0, z: 0 });
       }
       if (j1.current) j1.current.setTranslation({ x: 0.5, y: 0, z: 0 });
