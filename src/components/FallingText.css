@@ -5,7 +5,19 @@
   height: 100%;
   cursor: grab;
   text-align: center;
-  padding-top: 2em;
+  padding-top: 1em;
+}
+
+@media (min-width: 640px) {
+  .falling-text-container {
+    padding-top: 1.5em;
+  }
+}
+
+@media (min-width: 768px) {
+  .falling-text-container {
+    padding-top: 2em;
+  }
 }
 
 .falling-text-container:active {
@@ -18,11 +30,25 @@
 
 .falling-word {
   display: inline-block;
-  margin: 0 4px;
+  margin: 0 2px;
   user-select: none;
   font-family: var(--font-display);
   color: hsl(var(--foreground) / 0.6);
   transition: color 0.3s ease;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+  .falling-word {
+    margin: 0 4px;
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .falling-word {
+    font-size: 1.5rem;
+  }
 }
 
 .falling-word:hover {

@@ -3,13 +3,14 @@ import { Menu, X, Volume2, VolumeX } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import batmanLogo from "@/assets/batman-logo.png";
+import backgroundMusic from "@/assets/background-music.mp3.mp3";
 
 const navItems = [
   { label: "About", href: "#about" },
   { label: "Prizes", href: "#prizes" },
   { label: "Domains", href: "#domains" },
   { label: "Timeline", href: "#timeline" },
-  { label: "Contact", href: "#contact" },
+  { label: "Sponsors", href: "#sponsors" },
 ];
 
 export const Navigation = () => {
@@ -19,10 +20,9 @@ export const Navigation = () => {
 
   useEffect(() => {
     // Create audio element for background music
-    // Using a free ambient sound - replace with your preferred music URL
-    audioRef.current = new Audio("https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3");
+    audioRef.current = new Audio(backgroundMusic);
     audioRef.current.loop = true;
-    audioRef.current.volume = 0.3;
+    audioRef.current.volume = 0.6;
     
     return () => {
       if (audioRef.current) {
@@ -60,12 +60,12 @@ export const Navigation = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400 }}
           >
-            <img src={batmanLogo} alt="Hack Hustle" className="w-10 h-10 object-contain" />
+            <img src={batmanLogo} alt="Hack Hustle" className="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
             <div className="flex flex-col">
-              <span className="text-2xl font-display tracking-[0.2em] text-foreground leading-none">
+              <span className="text-xl sm:text-2xl font-display tracking-[0.15em] sm:tracking-[0.2em] text-foreground leading-none">
                 HACK HUSTLE
               </span>
-              <span className="text-xs font-body tracking-[0.15em] text-primary/80 mt-0.5">
+              <span className="text-[10px] sm:text-xs font-body tracking-[0.1em] sm:tracking-[0.15em] text-primary/80 mt-0.5">
                 Code Knight
               </span>
             </div>

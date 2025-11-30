@@ -7,7 +7,7 @@ const navLinks = [
   { name: "Prizes", href: "#prizes" },
   { name: "Domains", href: "#domains" },
   { name: "Timeline", href: "#timeline" },
-  { name: "Contact", href: "#contact" },
+  { name: "Sponsors", href: "#sponsors" },
 ];
 
 const allies = [
@@ -19,53 +19,29 @@ const allies = [
 
 export const Footer = () => {
   return (
-    <footer className="relative">
-      {/* Falling Text Interactive Section */}
-      <div className="border-t border-primary/20 bg-gradient-to-b from-background to-bat-black/50">
-        <div className="container mx-auto px-6 py-8">
-          <div className="text-center mb-4">
-            <span className="text-xs font-body text-primary/60 tracking-[0.3em] uppercase">
-              Play with the words
-            </span>
-          </div>
-          <div className="h-[200px] md:h-[250px] relative">
-            <FallingText
-              text="GOTHAM KNIGHT JUSTICE DARK VIGILANTE HERO CODE HACK HUSTLE INNOVATE BUILD CREATE BATMAN SIGNAL NIGHT GUARDIAN PROTECT FUTURE TECH"
-              highlightWords={["GOTHAM", "KNIGHT", "BATMAN", "HACK", "HUSTLE", "CODE"]}
-              highlightClass="bat-highlight"
-              trigger="scroll"
-              backgroundColor="transparent"
-              wireframes={false}
-              gravity={0.5}
-              fontSize="1.5rem"
-              mouseConstraintStiffness={0.9}
-            />
-          </div>
-        </div>
-      </div>
-
+    <footer className="relative w-full z-10">
       {/* Main Footer */}
-      <div className="py-16 border-t border-primary/20 relative">
+      <div className="py-12 md:py-16 border-t border-primary/20 relative bg-background w-full">
         <div className="absolute inset-0 bg-gradient-to-t from-bat-black to-transparent opacity-50" />
         
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="grid md:grid-cols-4 gap-12 mb-16">
-            <div className="md:col-span-2">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 md:gap-12 mb-10 md:mb-16">
+            <div className="sm:col-span-2 md:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <img src={batmanLogo} alt="Hack Hustle" className="w-12 h-12 object-contain" />
+                <img src={batmanLogo} alt="Hack Hustle" className="w-12 h-12 sm:w-12 sm:h-12 object-contain" />
                 <div className="flex flex-col">
-                  <span className="text-3xl font-display tracking-[0.15em] text-foreground leading-none">HACK HUSTLE</span>
-                  <span className="text-xs font-body tracking-[0.1em] text-primary/80 mt-1">Code Knight</span>
+                  <span className="text-2xl sm:text-3xl font-display tracking-[0.1em] sm:tracking-[0.15em] text-foreground leading-none">HACK HUSTLE</span>
+                  <span className="text-xs sm:text-xs font-body tracking-[0.1em] text-primary/80 mt-1">Code Knight</span>
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground font-body max-w-sm tracking-wide leading-relaxed">
+              <p className="text-sm sm:text-sm text-muted-foreground font-body max-w-sm tracking-wide leading-relaxed">
                 Join us for an epic 24-hour hackathon. Compete across three domains 
                 and create innovative solutions that shape the future.
               </p>
             </div>
             
-            <div>
-              <span className="text-xs font-body text-primary tracking-[0.3em] mb-4 block uppercase">
+            <div className="mt-6 sm:mt-0">
+              <span className="text-xs sm:text-xs font-body text-primary tracking-[0.2em] sm:tracking-[0.3em] mb-4 block uppercase">
                 Navigation
               </span>
               <ul className="space-y-2">
@@ -73,7 +49,7 @@ export const Footer = () => {
                   <li key={link.name}>
                     <a 
                       href={link.href}
-                      className="text-sm font-body text-foreground hover:text-primary transition-colors link-underline tracking-wider"
+                      className="text-sm sm:text-sm font-body text-foreground hover:text-primary transition-colors link-underline tracking-wider"
                     >
                       {link.name}
                     </a>
@@ -82,8 +58,8 @@ export const Footer = () => {
               </ul>
             </div>
             
-            <div>
-              <span className="text-xs font-body text-primary tracking-[0.3em] mb-4 block uppercase">
+            <div className="mt-6 sm:mt-0">
+              <span className="text-xs sm:text-xs font-body text-primary tracking-[0.2em] sm:tracking-[0.3em] mb-4 block uppercase">
                 Community
               </span>
               <ul className="space-y-2">
@@ -91,7 +67,7 @@ export const Footer = () => {
                   <li key={link.name}>
                     <a 
                       href={link.href}
-                      className="text-sm font-body text-foreground hover:text-primary transition-colors link-underline tracking-wider"
+                      className="text-sm sm:text-sm font-body text-foreground hover:text-primary transition-colors link-underline tracking-wider"
                     >
                       {link.name}
                     </a>
@@ -102,12 +78,34 @@ export const Footer = () => {
           </div>
           
           <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-primary/10 gap-4">
-            <span className="text-xs font-body text-muted-foreground tracking-wider">
+            <span className="text-xs sm:text-xs font-body text-muted-foreground tracking-wider text-center md:text-left">
               © Hack Hustle 2026. Saveetha Engineering College.
             </span>
-            <span className="text-xs font-body text-primary/60 tracking-[0.2em]">
+            <span className="text-xs sm:text-xs font-body text-primary/60 tracking-[0.15em] sm:tracking-[0.2em]">
               CODE THE FUTURE
             </span>
+          </div>
+
+          {/* Falling Text Interactive Section - Merged into footer */}
+          <div className="mt-10 sm:mt-12 pt-8">
+            <div className="text-center mb-4">
+              <span className="text-xs sm:text-xs font-body text-primary/60 tracking-[0.2em] sm:tracking-[0.3em] uppercase">
+                Play with the words
+              </span>
+            </div>
+            <div className="h-[180px] sm:h-[200px] md:h-[250px] relative overflow-hidden" style={{ pointerEvents: 'auto' }}>
+              <FallingText
+                text="GOTHAM KNIGHT JUSTICE DARK VIGILANTE HERO CODE HACK HUSTLE INNOVATE BUILD CREATE BATMAN SIGNAL NIGHT GUARDIAN PROTECT FUTURE TECH"
+                highlightWords={["GOTHAM", "KNIGHT", "BATMAN", "HACK", "HUSTLE", "CODE"]}
+                highlightClass="bat-highlight"
+                trigger="scroll"
+                backgroundColor="transparent"
+                wireframes={false}
+                gravity={0.5}
+                fontSize="clamp(0.75rem, 3vw, 1.5rem)"
+                mouseConstraintStiffness={0.9}
+              />
+            </div>
           </div>
         </div>
       </div>

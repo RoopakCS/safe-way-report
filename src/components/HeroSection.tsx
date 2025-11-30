@@ -1,13 +1,81 @@
-import { ArrowDown } from "lucide-react";
 import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import batmanHero from "@/assets/batman-hero-new.jpg";
 import LightRays from "./LightRays";
 
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 export const HeroSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current || !contentRef.current || !bgRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Pin the hero section (disable on mobile for better UX)
+      const isMobile = window.innerWidth < 768;
+      
+      if (!isMobile) {
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+        });
+      }
+
+      // Parallax background (only on larger screens)
+      if (!isMobile) {
+        gsap.to(bgRef.current, {
+          y: "30%",
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+
+        // Fade out content as we scroll
+        gsap.to(contentRef.current, {
+          opacity: 0,
+          y: -50,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+      }
+    }, sectionRef);
+
+    // Refresh on resize
+    const handleResize = () => {
+      ScrollTrigger.refresh();
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      ctx.revert();
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0">
+      <div ref={bgRef} className="absolute inset-0">
         <div className="w-full h-full relative">
           <motion.img
             src={batmanHero}
@@ -116,14 +184,14 @@ export const HeroSection = () => {
         </motion.div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 flex items-center min-h-screen">
-        <div className="max-w-xl lg:max-w-2xl pt-20 lg:pt-0">
+      <div ref={contentRef} className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-12 flex items-center min-h-screen">
+        <div className="max-w-xl lg:max-w-2xl pt-20 lg:pt-0 w-full">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="inline-block mb-8 px-6 py-2 border border-primary/40 rounded-none text-xs font-body text-primary tracking-[0.4em] uppercase bg-background/80 backdrop-blur-sm">
+            <span className="inline-block mb-6 sm:mb-8 px-4 sm:px-6 py-2 border border-primary/40 rounded-none text-[10px] sm:text-xs font-body text-primary tracking-[0.3em] sm:tracking-[0.4em] uppercase bg-background/80 backdrop-blur-sm">
               10TH FEBRUARY 2026
             </span>
           </motion.div>
@@ -134,9 +202,9 @@ export const HeroSection = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-foreground">HACK HUSTLE</span>
+            <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-foreground">HACK HUSTLE</span>
             <motion.span 
-              className="block text-gradient text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-4"
+              className="block text-gradient text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mt-2 sm:mt-4"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -146,7 +214,7 @@ export const HeroSection = () => {
           </motion.h1>
           
           <motion.p 
-            className="mt-10 max-w-md text-base md:text-lg font-body text-muted-foreground/80 leading-relaxed tracking-wider"
+            className="mt-6 sm:mt-10 max-w-md text-sm sm:text-base md:text-lg font-body text-muted-foreground/80 leading-relaxed tracking-wider"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
@@ -155,21 +223,21 @@ export const HeroSection = () => {
           </motion.p>
 
           <motion.div 
-            className="mt-12 flex flex-col sm:flex-row gap-4"
+            className="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
           >
             <motion.a
               href="#prizes"
-              className="group inline-flex items-center justify-center px-10 py-4 bg-primary text-primary-foreground font-display text-lg tracking-wider hover:scale-105 transition-transform duration-300 glow-gold"
+              className="group inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 bg-primary text-primary-foreground font-display text-base sm:text-lg tracking-wider hover:scale-105 transition-transform duration-300 glow-gold"
               whileHover={{ boxShadow: "0 0 80px hsl(45 100% 50% / 0.5)" }}
             >
               <span>View Prizes</span>
             </motion.a>
             <motion.a
               href="#contact"
-              className="group inline-flex items-center justify-center px-10 py-4 border border-foreground/30 text-foreground font-display text-lg tracking-wider hover:border-primary hover:text-primary transition-all duration-300 bg-background/50 backdrop-blur-sm"
+              className="group inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 border border-foreground/30 text-foreground font-display text-base sm:text-lg tracking-wider hover:border-primary hover:text-primary transition-all duration-300 bg-background/50 backdrop-blur-sm"
               whileHover={{ borderColor: "hsl(45 100% 50%)" }}
             >
               <span>Register Now</span>
@@ -177,24 +245,6 @@ export const HeroSection = () => {
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-      >
-        <a href="#about" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-          <span className="text-xs font-body tracking-[0.3em]">EXPLORE</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <ArrowDown size={20} />
-          </motion.div>
-        </a>
-      </motion.div>
     </section>
   );
 };

@@ -36,26 +36,26 @@ export const WorkSection = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section id="timeline" className="py-24 relative" ref={ref}>
+    <section id="timeline" className="py-12 sm:py-16 md:py-20 relative" ref={ref}>
       {/* Background vertical lines */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
         <div className="absolute left-1/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
         <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent" />
         <div className="absolute left-3/4 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <motion.div 
-          className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+          className="mb-6 sm:mb-8 md:mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4 sm:gap-6"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
           <div>
-            <span className="text-primary font-body text-xs tracking-[0.3em] mb-3 block uppercase">
+            <span className="text-primary font-body text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] mb-2 sm:mb-3 block uppercase">
               Event Schedule
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display">
               TIMELINE
               <br />
               <span className="text-gradient">& MILESTONES</span>
@@ -63,14 +63,14 @@ export const WorkSection = () => {
           </div>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 text-primary font-body text-sm font-semibold link-underline self-start tracking-wider hover:gap-3 transition-all"
+            className="inline-flex items-center gap-2 text-primary font-body text-xs sm:text-sm font-semibold link-underline self-start tracking-wider hover:gap-3 transition-all"
           >
             Register Now
-            <ArrowUpRight size={16} />
+            <ArrowUpRight size={14} className="sm:w-4 sm:h-4" />
           </a>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-4 lg:gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
           {milestones.map((milestone, index) => (
             <motion.div
               key={milestone.title}
@@ -112,24 +112,24 @@ export const WorkSection = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-bat-black via-bat-black/60 to-bat-black/20 group-hover:via-bat-black/70 transition-all duration-500" />
 
               {/* Top info */}
-              <div className="absolute top-4 left-4 right-4 flex justify-between items-start z-10">
+              <div className="absolute top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 flex justify-between items-start z-10">
                 <motion.span 
-                  className="text-[11px] font-body text-primary tracking-[0.15em] uppercase"
+                  className="text-[10px] sm:text-xs font-body text-primary tracking-[0.1em] sm:tracking-[0.15em] uppercase"
                   animate={{ y: hoveredIndex === index ? 0 : -5, opacity: hoveredIndex === index ? 1 : 0.8 }}
                   transition={{ duration: 0.3 }}
                 >
                   {milestone.category}
                 </motion.span>
-                <span className="text-[11px] font-body text-foreground/60 tracking-wider">
+                <span className="text-[10px] sm:text-xs font-body text-foreground/60 tracking-wider">
                   {milestone.status}
                 </span>
               </div>
               
               {/* Bottom content */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
+              <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 z-10">
                 {/* Description - shows on hover */}
                 <motion.p 
-                  className="text-xs font-body text-foreground/70 mb-3 tracking-wide leading-relaxed"
+                  className="text-xs sm:text-sm font-body text-foreground/70 mb-2 sm:mb-3 tracking-wide leading-relaxed"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: hoveredIndex === index ? 1 : 0, y: hoveredIndex === index ? 0 : 10 }}
                   transition={{ duration: 0.3 }}
@@ -139,7 +139,7 @@ export const WorkSection = () => {
 
                 <div className="flex items-end justify-between">
                   <motion.h3 
-                    className="text-xl md:text-2xl font-display tracking-wider group-hover:text-primary transition-colors duration-300 uppercase leading-tight"
+                    className="text-base sm:text-lg font-display tracking-wider group-hover:text-primary transition-colors duration-300 uppercase leading-tight"
                     animate={{ y: hoveredIndex === index ? -5 : 0 }}
                     transition={{ duration: 0.3 }}
                   >
@@ -149,12 +149,12 @@ export const WorkSection = () => {
                   </motion.h3>
                   
                   <motion.div 
-                    className="w-10 h-10 flex items-center justify-center border border-primary/50 group-hover:border-primary group-hover:bg-primary transition-all duration-300"
+                    className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center border border-primary/50 group-hover:border-primary group-hover:bg-primary transition-all duration-300"
                     whileHover={{ scale: 1.1 }}
                   >
                     <ArrowUpRight 
-                      size={16} 
-                      className="text-primary group-hover:text-primary-foreground transition-colors" 
+                      size={14} 
+                      className="sm:w-4 sm:h-4 text-primary group-hover:text-primary-foreground transition-colors" 
                     />
                   </motion.div>
                 </div>
@@ -178,20 +178,20 @@ export const WorkSection = () => {
 
         {/* Timeline dots */}
         <motion.div 
-          className="flex justify-center items-center gap-8 mt-10"
+          className="flex justify-center items-center gap-4 sm:gap-6 md:gap-8 mt-6 sm:mt-8 md:mt-10"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
           {milestones.map((_, index) => (
-            <div key={index} className="flex items-center gap-8">
+            <div key={index} className="flex items-center gap-4 sm:gap-6 md:gap-8">
               <motion.div 
-                className="w-2 h-2 rounded-full bg-primary/60"
+                className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary/60"
                 animate={{ scale: hoveredIndex === index ? 1.5 : 1 }}
                 transition={{ duration: 0.3 }}
               />
               {index < milestones.length - 1 && (
-                <div className="w-16 h-px bg-gradient-to-r from-primary/40 to-primary/20" />
+                <div className="w-8 sm:w-12 md:w-16 h-px bg-gradient-to-r from-primary/40 to-primary/20" />
               )}
             </div>
           ))}
