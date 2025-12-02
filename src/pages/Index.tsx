@@ -1,28 +1,43 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
-import { AboutSection } from "@/components/AboutSection";
-import { ServicesSection } from "@/components/ServicesSection";
-import { WorkSection } from "@/components/WorkSection";
-import { MarqueeSection } from "@/components/MarqueeSection";
-import { AwardsSection } from "@/components/AwardsSection";
-import { SponsorsSection } from "@/components/SponsorsSection";
-import { Footer } from "@/components/Footer";
-import { BatSignal } from "@/components/BatSignal";
-import { RainEffect } from "@/components/RainEffect";
+
+// Lazy load heavy components for better initial performance
+const AboutSection = lazy(() => import("@/components/AboutSection").then(m => ({ default: m.AboutSection })));
+const ServicesSection = lazy(() => import("@/components/ServicesSection").then(m => ({ default: m.ServicesSection })));
+const WorkSection = lazy(() => import("@/components/WorkSection").then(m => ({ default: m.WorkSection })));
+const MarqueeSection = lazy(() => import("@/components/MarqueeSection").then(m => ({ default: m.MarqueeSection })));
+const AwardsSection = lazy(() => import("@/components/AwardsSection").then(m => ({ default: m.AwardsSection })));
+const SponsorsSection = lazy(() => import("@/components/SponsorsSection").then(m => ({ default: m.SponsorsSection })));
+const GallerySection = lazy(() => import("@/components/GallerySection").then(m => ({ default: m.GallerySection })));
+const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
+const BatSignal = lazy(() => import("@/components/BatSignal").then(m => ({ default: m.BatSignal })));
+const RainEffect = lazy(() => import("@/components/RainEffect").then(m => ({ default: m.RainEffect })));
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+// Simple loading fallback
+const SectionLoader = () => (
+  <div className="min-h-[50vh] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+  </div>
+);
+
 const Index = () => {
+  const [showEffects, setShowEffects] = useState(false);
+
   useEffect(() => {
-    // Initialize Lenis for smooth scrolling
+    // Delay background effects for better initial load
+    const effectsTimer = setTimeout(() => setShowEffects(true), 1500);
+
+    // Initialize Lenis for smooth scrolling with optimized settings
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
@@ -42,14 +57,20 @@ const Index = () => {
 
     gsap.ticker.lagSmoothing(0);
 
-    // Refresh ScrollTrigger on resize
+    // Debounced resize handler for better performance
+    let resizeTimeout: ReturnType<typeof setTimeout>;
     const handleResize = () => {
-      ScrollTrigger.refresh();
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 250);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
     
     return () => {
+      clearTimeout(effectsTimer);
+      clearTimeout(resizeTimeout);
       lenis.destroy();
       window.removeEventListener('resize', handleResize);
     };
@@ -57,21 +78,30 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative noise-overlay">
-      {/* Background Effects */}
-      <BatSignal />
-      <RainEffect />
+      {/* Background Effects - Lazy loaded after initial render */}
+      {showEffects && (
+        <Suspense fallback={null}>
+          <BatSignal />
+          <RainEffect />
+        </Suspense>
+      )}
       
       <Navigation />
       <main className="relative z-10">
         <HeroSection />
-        <AboutSection />
-        <ServicesSection />
-        <AwardsSection />
-        <WorkSection />
-        <MarqueeSection />
-        <SponsorsSection />
+        <Suspense fallback={<SectionLoader />}>
+          <AboutSection />
+          <ServicesSection />
+          <AwardsSection />
+          <WorkSection />
+          <MarqueeSection />
+          <SponsorsSection />
+          <GallerySection />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={<SectionLoader />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };

@@ -38,15 +38,16 @@ export default function Lanyard({
     <div className="lanyard-wrapper">
       <Canvas
         camera={{ position: position, fov: fov }}
-        dpr={[1, isMobile ? 1.5 : 2]}
-        gl={{ alpha: transparent }}
+        dpr={[1, isMobile ? 1 : 1.5]}
+        gl={{ alpha: transparent, antialias: !isMobile, powerPreference: 'high-performance' }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
+        frameloop="demand"
       >
         <ambientLight intensity={1.5} />
         <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
         <directionalLight position={[-5, 3, 5]} intensity={0.8} />
         <pointLight position={[0, 4, 8]} intensity={1.5} color="#FFD700" />
-        <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
+        <Physics gravity={gravity} timeStep={1 / 30}>
           <Band isMobile={isMobile} cardImage={cardImage} />
         </Physics>
         <Environment blur={0.5} preset="city">
@@ -206,7 +207,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage }: { ma
       
       // Initialize tube geometry
       if (band.current && curve) {
-        const segments = isMobile ? 16 : 32;
+        const segments = 16; // Reduced for performance
         const radius = 0.06;
         const radialSegments = 4; // Rectangular cross-section
         tubeGeometryRef.current = new THREE.TubeGeometry(
@@ -282,7 +283,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage }: { ma
         if (band.current) {
           frameCount.current++;
           // Update geometry every frame for smooth following
-          const segments = isMobile ? 16 : 32;
+          const segments = 16; // Reduced for performance
           const radius = 0.06; // Width of the rectangular strap
           const radialSegments = 4; // Rectangular cross-section (4 sides = flat rectangle)
           

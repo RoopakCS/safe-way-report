@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 import ShinyText from "./ShinyText";
-import batmanLogo from "@/assets/batman-logo.png";
+import batmanLogo from "@/assets/hh26-logo.png";
 // Using batman-hero-new.jpg as placeholder - replace with batman-domains.jpg when available
 import batmanDomains from "@/assets/batman-hero-new.jpg";
 import batmanHero from "@/assets/batman-hero.jpg";
@@ -145,6 +145,7 @@ export const ServicesSection = () => {
             maskImage: 'linear-gradient(to left, black 0%, black 30%, transparent 75%)',
             WebkitMaskImage: 'linear-gradient(to left, black 0%, black 30%, transparent 75%)',
             zIndex: 0,
+            contentVisibility: 'auto',
           }}
         />
         
@@ -164,16 +165,9 @@ export const ServicesSection = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-2" />
       </div>
 
-      {/* Batman Sticker - Decorative Element */}
-      <motion.div
-        className="absolute right-2 sm:right-4 xl:right-8 top-1/2 -translate-y-1/2 z-0 opacity-8 sm:opacity-12 md:opacity-15 hidden md:block"
-        initial={{ opacity: 0, scale: 0.8, rotate: -15 }}
-        animate={isInView ? { opacity: [0.08, 0.15, 0.08], scale: 0.9, rotate: -12 } : {}}
-        transition={{ 
-          opacity: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-          scale: { duration: 1, delay: 0.5 },
-          rotate: { duration: 1, delay: 0.5 }
-        }}
+      {/* Batman Sticker - Decorative Element - simplified */}
+      <div
+        className="absolute right-2 sm:right-4 xl:right-8 top-1/2 -translate-y-1/2 z-0 opacity-10 hidden md:block"
         style={{ 
           filter: 'drop-shadow(0 0 30px hsl(45 100% 50% / 0.2))',
         }}
@@ -195,6 +189,7 @@ export const ServicesSection = () => {
                 alt="Batman Sticker" 
                 className="w-16 h-16 md:w-24 md:h-24 object-contain filter brightness-110"
                 style={{ filter: 'drop-shadow(0 0 15px hsl(45 100% 50% / 0.4))' }}
+                loading="lazy"
               />
               
               {/* Corner accents */}
@@ -205,7 +200,7 @@ export const ServicesSection = () => {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       <div className="container mx-auto px-4 sm:px-6 relative z-20">
         <motion.div 
@@ -328,50 +323,30 @@ export const ServicesSection = () => {
         </div>
       </div>
 
-      {/* Floating Agenda Button - Bottom Right */}
-      <motion.div
+      {/* Floating Agenda Button - Bottom Right - simplified */}
+      <div
         className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, delay: 1 }}
       >
         <Link to="/agenda">
-          <motion.button
-            className="group relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-primary/10 backdrop-blur-sm border border-primary/40 hover:border-primary flex items-center justify-center overflow-hidden transition-all duration-300"
-            whileHover={{ scale: 1.1, boxShadow: "0 0 30px hsl(45 100% 50% / 0.5)" }}
-            whileTap={{ scale: 0.95 }}
+          <button
+            className="group relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-primary/10 backdrop-blur-sm border border-primary/40 hover:border-primary hover:scale-110 hover:shadow-[0_0_30px_hsl(45_100%_50%/0.5)] flex items-center justify-center overflow-hidden transition-all duration-300"
           >
-            {/* Pulsing glow effect */}
-            <motion.div
-              className="absolute inset-0 rounded-full bg-primary/20"
-              animate={{
-                opacity: [0.4, 0.8, 0.4],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
+            {/* Pulsing glow effect - CSS only */}
+            <div
+              className="absolute inset-0 rounded-full bg-primary/20 animate-bat-signal"
             />
-            
-            {/* Hover glow */}
-            <div className="absolute inset-0 rounded-full bg-primary/0 group-hover:bg-primary/30 transition-all duration-500 blur-md" />
             
             <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-primary relative z-10 group-hover:scale-110 transition-transform duration-300" />
             
             {/* Tooltip on hover */}
-            <motion.div
+            <div
               className="absolute right-full mr-2 px-2 py-1 bg-card/95 backdrop-blur-sm border border-primary/50 rounded text-[10px] font-body text-primary tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300"
-              initial={{ x: -5, opacity: 0 }}
-              whileHover={{ x: 0, opacity: 1 }}
             >
               <span className="text-[10px]">Agenda</span>
-              <div className="absolute left-full top-1/2 -translate-y-1/2 border-3 border-transparent border-l-primary/50" />
-            </motion.div>
-          </motion.button>
+            </div>
+          </button>
         </Link>
-      </motion.div>
+      </div>
     </section>
   );
 };

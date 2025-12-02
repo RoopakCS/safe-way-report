@@ -1,4 +1,4 @@
-import batmanLogo from "@/assets/batman-logo.png";
+import batmanLogo from "@/assets/ts-logo.png";
 import FallingText from "./FallingText";
 import "./FallingText.css";
 
@@ -30,8 +30,8 @@ export const Footer = () => {
               <div className="flex items-center gap-3 mb-4">
                 <img src={batmanLogo} alt="Hack Hustle" className="w-12 h-12 sm:w-12 sm:h-12 object-contain" />
                 <div className="flex flex-col">
-                  <span className="text-2xl sm:text-3xl font-display tracking-[0.1em] sm:tracking-[0.15em] text-foreground leading-none">HACK HUSTLE</span>
-                  <span className="text-xs sm:text-xs font-body tracking-[0.1em] text-primary/80 mt-1">Code Knight</span>
+                  <span className="text-2xl sm:text-3xl font-display tracking-[0.1em] sm:tracking-[0.15em] text-foreground leading-none">TECH SOCIETY</span>
+                  <span className="text-xs sm:text-xs font-body tracking-[0.1em] text-primary/80 mt-1">Saveetha Engineering College</span>
                 </div>
               </div>
               <p className="text-sm sm:text-sm text-muted-foreground font-body max-w-sm tracking-wide leading-relaxed">

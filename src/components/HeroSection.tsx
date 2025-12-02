@@ -77,13 +77,11 @@ export const HeroSection = () => {
       {/* Background Image */}
       <div ref={bgRef} className="absolute inset-0">
         <div className="w-full h-full relative">
-          <motion.img
+          <img
             src={batmanHero}
             alt="Batman overlooking Gotham"
             className="absolute inset-0 w-full h-full object-cover object-[50%_20%] sm:object-[55%_center] md:object-[60%_center] lg:object-[65%_center]"
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 2, ease: "easeOut" }}
+            loading="eager"
           />
         </div>
         {/* Left gradient - covers left side more heavily */}
@@ -117,24 +115,17 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      {/* Animated particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
+      {/* Animated particles - reduced for performance */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(8)].map((_, i) => (
+          <div
             key={i}
-            className="absolute w-1 h-1 bg-primary/30 rounded-full"
+            className="absolute w-1 h-1 bg-primary/30 rounded-full animate-float"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -100],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
+              animationDelay: `${i * 0.5}s`,
+              animationDuration: `${4 + Math.random() * 2}s`,
             }}
           />
         ))}
@@ -152,32 +143,26 @@ export const HeroSection = () => {
           <div className="w-[2px] h-32 bg-gradient-to-b from-transparent via-primary to-transparent mx-auto" />
           
           {/* Stats/Info boxes */}
-          <motion.div 
-            className="border-2 border-primary/30 bg-background/90 backdrop-blur-md p-6 min-w-[200px]"
-            whileHover={{ scale: 1.05, borderColor: "hsl(45 100% 50% / 0.6)" }}
-            transition={{ duration: 0.3 }}
+          <div 
+            className="border-2 border-primary/30 bg-background/90 backdrop-blur-md p-6 min-w-[200px] hover:scale-105 hover:border-primary/60 transition-all duration-300"
           >
             <div className="text-4xl font-display text-primary mb-2">24hrs</div>
             <div className="text-sm font-body text-muted-foreground tracking-wider">DURATION</div>
-          </motion.div>
+          </div>
 
-          <motion.div 
-            className="border-2 border-primary/30 bg-background/90 backdrop-blur-md p-6 min-w-[200px]"
-            whileHover={{ scale: 1.05, borderColor: "hsl(45 100% 50% / 0.6)" }}
-            transition={{ duration: 0.3 }}
+          <div 
+            className="border-2 border-primary/30 bg-background/90 backdrop-blur-md p-6 min-w-[200px] hover:scale-105 hover:border-primary/60 transition-all duration-300"
           >
             <div className="text-4xl font-display text-primary mb-2">₹35K+</div>
             <div className="text-sm font-body text-muted-foreground tracking-wider">PRIZE POOL</div>
-          </motion.div>
+          </div>
 
-          <motion.div 
-            className="border-2 border-primary/30 bg-background/90 backdrop-blur-md p-6 min-w-[200px]"
-            whileHover={{ scale: 1.05, borderColor: "hsl(45 100% 50% / 0.6)" }}
-            transition={{ duration: 0.3 }}
+          <div 
+            className="border-2 border-primary/30 bg-background/90 backdrop-blur-md p-6 min-w-[200px] hover:scale-105 hover:border-primary/60 transition-all duration-300"
           >
             <div className="text-4xl font-display text-primary mb-2">3</div>
             <div className="text-sm font-body text-muted-foreground tracking-wider">DOMAINS</div>
-          </motion.div>
+          </div>
 
           {/* Bottom vertical line */}
           <div className="w-[2px] h-32 bg-gradient-to-b from-primary via-transparent to-transparent mx-auto" />

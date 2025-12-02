@@ -109,8 +109,9 @@ const LightRays = ({
 
       if (!containerRef.current) return;
 
+      // Reduced DPR for better performance - max 1.5 instead of 2
       const renderer = new Renderer({
-        dpr: Math.min(window.devicePixelRatio, 2),
+        dpr: Math.min(window.devicePixelRatio, 1.5),
         alpha: true
       });
       rendererRef.current = renderer;
@@ -259,7 +260,7 @@ void main() {
       const updatePlacement = () => {
         if (!containerRef.current || !renderer) return;
 
-        renderer.dpr = Math.min(window.devicePixelRatio, 2);
+        renderer.dpr = Math.min(window.devicePixelRatio, 1.5);
 
         const { clientWidth: wCSS, clientHeight: hCSS } = containerRef.current;
         renderer.setSize(wCSS, hCSS);
@@ -275,10 +276,21 @@ void main() {
         uniforms.rayDir.value = dir;
       };
 
+      // Throttle render loop to ~30fps for performance
+      let lastFrameTime = 0;
+      const targetFrameInterval = 1000 / 30;
+
       const loop = (t: number) => {
         if (!rendererRef.current || !uniformsRef.current || !meshRef.current) {
           return;
         }
+
+        // Throttle to target FPS
+        if (t - lastFrameTime < targetFrameInterval) {
+          animationIdRef.current = requestAnimationFrame(loop);
+          return;
+        }
+        lastFrameTime = t;
 
         uniforms.iTime.value = t * 0.001;
 
@@ -404,8 +416,16 @@ void main() {
     };
 
     if (followMouse) {
-      window.addEventListener('mousemove', handleMouseMove);
-      return () => window.removeEventListener('mousemove', handleMouseMove);
+      // Throttle mouse events for performance
+      let lastMove = 0;
+      const throttledMouseMove = (e: MouseEvent) => {
+        const now = Date.now();
+        if (now - lastMove < 32) return; // ~30fps throttle
+        lastMove = now;
+        handleMouseMove(e);
+      };
+      window.addEventListener('mousemove', throttledMouseMove, { passive: true });
+      return () => window.removeEventListener('mousemove', throttledMouseMove);
     }
   }, [followMouse]);
 

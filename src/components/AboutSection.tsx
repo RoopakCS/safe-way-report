@@ -3,7 +3,8 @@ import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ShinyText from "./ShinyText";
-import batmanLogo from "@/assets/batman-logo.png";
+import { Countdown } from "./Countdown";
+import batmanLogo from "@/assets/hh26-logo.png";
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -75,7 +76,7 @@ export const AboutSection = () => {
       
       <div ref={sectionRef} className="container mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
-          <div ref={textRef} className="order-2 lg:order-1">
+          <div ref={textRef} className="order-2 lg:order-1 text-left">
             <span className="text-primary font-body text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] mb-2 sm:mb-3 block uppercase">
               The Event
             </span>
@@ -98,6 +99,14 @@ export const AboutSection = () => {
                 speed={3} 
               />
             </p>
+            
+            {/* Countdown Timer */}
+            <div className="mt-8">
+              <p className="text-sm sm:text-base text-primary font-bold tracking-wide mb-4">
+                Ready to experience in
+              </p>
+              <Countdown targetDate={new Date('2026-02-10T00:00:00')} />
+            </div>
           </div>
           
           <div 
@@ -109,23 +118,15 @@ export const AboutSection = () => {
               
               {/* Batman logo center */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div 
-                  className="relative"
-                  animate={{ 
-                    boxShadow: [
-                      "0 0 40px hsl(45 100% 50% / 0.2)",
-                      "0 0 80px hsl(45 100% 50% / 0.4)",
-                      "0 0 40px hsl(45 100% 50% / 0.2)"
-                    ]
-                  }}
-                  transition={{ duration: 3, repeat: Infinity }}
+                <div 
+                  className="relative animate-bat-signal"
                 >
                   <img 
                     src={batmanLogo} 
                     alt="Batman Symbol" 
                     className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-contain"
                   />
-                </motion.div>
+                </div>
               </div>
               
               {/* Corner accents */}

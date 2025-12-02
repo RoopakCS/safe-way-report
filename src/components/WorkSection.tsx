@@ -1,7 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import gothamRooftop from "@/assets/gotham-rooftop.jpg";
 import batSignal from "@/assets/bat-signal.jpg";
 import batmanHero from "@/assets/batman-hero.jpg";
@@ -33,7 +33,6 @@ const milestones = [
 export const WorkSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <section id="timeline" className="py-12 sm:py-16 md:py-20 relative" ref={ref}>
@@ -78,8 +77,6 @@ export const WorkSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.15 }}
               className="group relative aspect-[3/4] overflow-hidden cursor-pointer"
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
             >
               {/* Border frame */}
               <div className="absolute inset-0 border border-primary/30 group-hover:border-primary/60 transition-colors duration-500 z-20 pointer-events-none">
@@ -91,21 +88,16 @@ export const WorkSection = () => {
               </div>
 
               {/* Left accent line */}
-              <motion.div 
-                className="absolute left-0 top-0 bottom-0 w-1 bg-primary z-20"
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: hoveredIndex === index ? 1 : 0 }}
-                transition={{ duration: 0.4 }}
-                style={{ transformOrigin: "top" }}
+              <div 
+                className="absolute left-0 top-0 bottom-0 w-1 bg-primary z-20 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"
               />
 
               {/* Image */}
-              <motion.img
+              <img
                 src={milestone.image}
                 alt={milestone.title}
-                className="absolute inset-0 w-full h-full object-cover"
-                animate={{ scale: hoveredIndex === index ? 1.1 : 1 }}
-                transition={{ duration: 0.6 }}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                loading="lazy"
               />
               
               {/* Overlay */}
@@ -113,13 +105,11 @@ export const WorkSection = () => {
 
               {/* Top info */}
               <div className="absolute top-2 sm:top-4 left-2 sm:left-4 right-2 sm:right-4 flex justify-between items-start z-10">
-                <motion.span 
-                  className="text-[10px] sm:text-xs font-body text-primary tracking-[0.1em] sm:tracking-[0.15em] uppercase"
-                  animate={{ y: hoveredIndex === index ? 0 : -5, opacity: hoveredIndex === index ? 1 : 0.8 }}
-                  transition={{ duration: 0.3 }}
+                <span 
+                  className="text-[10px] sm:text-xs font-body text-primary tracking-[0.1em] sm:tracking-[0.15em] uppercase group-hover:translate-y-0 transition-transform duration-300"
                 >
                   {milestone.category}
-                </motion.span>
+                </span>
                 <span className="text-[10px] sm:text-xs font-body text-foreground/60 tracking-wider">
                   {milestone.status}
                 </span>
@@ -128,49 +118,35 @@ export const WorkSection = () => {
               {/* Bottom content */}
               <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 z-10">
                 {/* Description - shows on hover */}
-                <motion.p 
-                  className="text-xs sm:text-sm font-body text-foreground/70 mb-2 sm:mb-3 tracking-wide leading-relaxed"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: hoveredIndex === index ? 1 : 0, y: hoveredIndex === index ? 0 : 10 }}
-                  transition={{ duration: 0.3 }}
+                <p 
+                  className="text-xs sm:text-sm font-body text-foreground/70 mb-2 sm:mb-3 tracking-wide leading-relaxed opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
                 >
                   {milestone.description}
-                </motion.p>
+                </p>
 
                 <div className="flex items-end justify-between">
-                  <motion.h3 
-                    className="text-base sm:text-lg font-display tracking-wider group-hover:text-primary transition-colors duration-300 uppercase leading-tight"
-                    animate={{ y: hoveredIndex === index ? -5 : 0 }}
-                    transition={{ duration: 0.3 }}
+                  <h3 
+                    className="text-base sm:text-lg font-display tracking-wider group-hover:text-primary group-hover:-translate-y-1 transition-all duration-300 uppercase leading-tight"
                   >
                     {milestone.title.split(' ').map((word, i) => (
                       <span key={i} className="block">{word}</span>
                     ))}
-                  </motion.h3>
+                  </h3>
                   
-                  <motion.div 
-                    className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center border border-primary/50 group-hover:border-primary group-hover:bg-primary transition-all duration-300"
-                    whileHover={{ scale: 1.1 }}
+                  <div 
+                    className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center border border-primary/50 group-hover:border-primary group-hover:bg-primary hover:scale-110 transition-all duration-300"
                   >
                     <ArrowUpRight 
                       size={14} 
                       className="sm:w-4 sm:h-4 text-primary group-hover:text-primary-foreground transition-colors" 
                     />
-                  </motion.div>
+                  </div>
                 </div>
               </div>
 
-              {/* Animated scan line */}
-              <motion.div 
-                className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100"
-                animate={{ 
-                  top: hoveredIndex === index ? ["0%", "100%"] : "0%"
-                }}
-                transition={{ 
-                  duration: 2, 
-                  repeat: hoveredIndex === index ? Infinity : 0,
-                  ease: "linear"
-                }}
+              {/* Animated scan line - CSS only */}
+              <div 
+                className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-scan"
               />
             </motion.div>
           ))}
@@ -185,10 +161,8 @@ export const WorkSection = () => {
         >
           {milestones.map((_, index) => (
             <div key={index} className="flex items-center gap-4 sm:gap-6 md:gap-8">
-              <motion.div 
-                className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary/60"
-                animate={{ scale: hoveredIndex === index ? 1.5 : 1 }}
-                transition={{ duration: 0.3 }}
+              <div 
+                className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-primary/60 hover:scale-150 transition-transform duration-300"
               />
               {index < milestones.length - 1 && (
                 <div className="w-8 sm:w-12 md:w-16 h-px bg-gradient-to-r from-primary/40 to-primary/20" />

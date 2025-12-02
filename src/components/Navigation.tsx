@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Menu, X, Volume2, VolumeX } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import batmanLogo from "@/assets/batman-logo.png";
+import batmanLogo from "@/assets/hh26-logo.png";
 import backgroundMusic from "@/assets/background-music.mp3.mp3";
 
 const navItems = [

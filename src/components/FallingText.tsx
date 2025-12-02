@@ -89,7 +89,9 @@ const FallingText = ({
         width,
         height,
         background: backgroundColor,
-        wireframes
+        wireframes,
+        // Performance optimizations
+        pixelRatio: Math.min(window.devicePixelRatio, 1.5),
       }
     });
 
@@ -147,19 +149,27 @@ const FallingText = ({
     Runner.run(runner, engine);
     Render.run(render);
 
-    const updateLoop = () => {
-      wordBodies.forEach(({ body, elem }) => {
-        const { x, y } = body.position;
-        elem.style.left = `${x}px`;
-        elem.style.top = `${y}px`;
-        elem.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad)`;
-      });
-      Matter.Engine.update(engine);
-      requestAnimationFrame(updateLoop);
+    // Throttled update loop - target ~30fps for DOM updates
+    let lastUpdateTime = 0;
+    const targetInterval = 1000 / 30;
+    let animationFrameId: number;
+
+    const updateLoop = (timestamp: number) => {
+      if (timestamp - lastUpdateTime >= targetInterval) {
+        wordBodies.forEach(({ body, elem }) => {
+          const { x, y } = body.position;
+          elem.style.left = `${x}px`;
+          elem.style.top = `${y}px`;
+          elem.style.transform = `translate(-50%, -50%) rotate(${body.angle}rad)`;
+        });
+        lastUpdateTime = timestamp;
+      }
+      animationFrameId = requestAnimationFrame(updateLoop);
     };
-    updateLoop();
+    animationFrameId = requestAnimationFrame(updateLoop);
 
     return () => {
+      cancelAnimationFrame(animationFrameId);
       Render.stop(render);
       Runner.stop(runner);
       if (render.canvas && canvasContainerRef.current) {

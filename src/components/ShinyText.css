@@ -24,6 +24,7 @@
   animation: shine var(--animation-duration, 3s) linear infinite;
   pointer-events: none;
   overflow: hidden;
+  will-change: background-position;
 }
 
 @keyframes shine {
@@ -35,7 +36,8 @@
   }
 }
 
-.shiny-text.disabled {
+.shiny-text.disabled::after {
   animation: none;
+  background: none;
 }
 
