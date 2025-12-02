@@ -11,6 +11,7 @@ const navItems = [
   { label: "Domains", href: "#domains" },
   { label: "Timeline", href: "#timeline" },
   { label: "Sponsors", href: "#sponsors" },
+  { label: "Team", href: "/team" },
 ];
 
 export const Navigation = () => {
@@ -55,7 +56,7 @@ export const Navigation = () => {
       >
         <div className="flex items-center justify-between">
           <motion.a 
-            href="#" 
+            href="/" 
             className="flex items-center gap-3"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400 }}
