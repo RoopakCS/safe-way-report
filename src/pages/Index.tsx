@@ -14,8 +14,6 @@ const AwardsSection = lazy(() => import("@/components/AwardsSection").then(m => 
 const SponsorsSection = lazy(() => import("@/components/SponsorsSection").then(m => ({ default: m.SponsorsSection })));
 const GallerySection = lazy(() => import("@/components/GallerySection").then(m => ({ default: m.GallerySection })));
 const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
-const BatSignal = lazy(() => import("@/components/BatSignal").then(m => ({ default: m.BatSignal })));
-const RainEffect = lazy(() => import("@/components/RainEffect").then(m => ({ default: m.RainEffect })));
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -37,12 +35,12 @@ const Index = () => {
 
     // Initialize Lenis for smooth scrolling with optimized settings
     const lenis = new Lenis({
-      duration: 1.0,
+      duration: 0.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.2,
       smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
@@ -78,13 +76,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative noise-overlay">
-      {/* Background Effects - Lazy loaded after initial render */}
-      {showEffects && (
-        <Suspense fallback={null}>
-          <BatSignal />
-          <RainEffect />
-        </Suspense>
-      )}
+      {/* Background Effects - Removed for better performance */}
       
       <Navigation />
       <main className="relative z-10">

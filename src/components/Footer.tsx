@@ -10,11 +10,12 @@ const navLinks = [
   { name: "Sponsors", href: "#sponsors" },
 ];
 
-const allies = [
-  { name: "Sponsors", href: "#" },
-  { name: "Partners", href: "#" },
-  { name: "Organizers", href: "#" },
-  { name: "Volunteers", href: "#" },
+const socialLinks = [
+  { name: "Instagram", href: "https://www.instagram.com/techsocietysec/" },
+  { name: "Twitter", href: "https://x.com/techsocietysec" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/techsocietysec" },
+  { name: "Facebook", href: "https://www.facebook.com/techsocietysec" },
+  { name: "YouTube", href: "https://www.youtube.com/@techsocietysec" },
 ];
 
 export const Footer = () => {
@@ -60,10 +61,10 @@ export const Footer = () => {
             
             <div className="mt-6 sm:mt-0">
               <span className="text-xs sm:text-xs font-body text-primary tracking-[0.2em] sm:tracking-[0.3em] mb-4 block uppercase">
-                Community
+                Social
               </span>
               <ul className="space-y-2">
-                {allies.map((link) => (
+                {socialLinks.map((link) => (
                   <li key={link.name}>
                     <a 
                       href={link.href}

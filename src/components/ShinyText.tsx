@@ -1,14 +1,9 @@
 import './ShinyText.css';
 
 const ShinyText = ({ text, disabled = false, speed = 5, className = '' }) => {
-  const animationDuration = `${speed}s`;
-
+  // Animation disabled for performance
   return (
-    <span 
-      className={`shiny-text ${disabled ? 'disabled' : ''} ${className}`} 
-      style={{ '--animation-duration': animationDuration } as React.CSSProperties}
-      data-text={text}
-    >
+    <span className={className}>
       {text}
     </span>
   );

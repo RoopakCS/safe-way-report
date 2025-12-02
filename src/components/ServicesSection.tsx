@@ -21,7 +21,6 @@ import image1 from "@/assets/1.jpg";
 import image2 from "@/assets/2.jpg";
 import image3 from "@/assets/3.jpg";
 import image4 from "@/assets/4.jpg";
-import Lanyard from "./Lanyard";
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -203,12 +202,9 @@ export const ServicesSection = () => {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 relative z-20">
-        <motion.div 
+        <div 
           ref={titleRef}
           className="mb-6 sm:mb-8 md:mb-10"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
         >
           <span className="text-primary font-body text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] mb-2 sm:mb-3 block uppercase">
             What We're Building
@@ -225,37 +221,33 @@ export const ServicesSection = () => {
               speed={3} 
             />
           </p>
-        </motion.div>
+        </div>
 
         <div className="flex flex-col lg:flex-row lg:grid lg:grid-cols-3 gap-3 sm:gap-4">
           {/* Left side - Service Cards */}
-          <motion.div 
+          <div 
             ref={cardsRef}
             className="grid sm:grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4 lg:col-span-2"
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
           >
             {services.map((service, index) => (
-              <motion.div
+              <div
                 key={service.title}
-                variants={itemVariants}
-                className="group p-4 sm:p-6 gotham-card hover-lift cursor-pointer relative overflow-hidden"
+                className="group p-4 sm:p-6 gotham-card cursor-pointer relative overflow-hidden"
               >
-                {/* Hover glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-transparent transition-all duration-500" />
+                {/* Simplified styling */}
+                <div className="absolute inset-0 bg-gradient-to-br from-card to-background" />
                 
                 <div className="relative z-10">
                   <div className="flex items-start justify-between mb-3 sm:mb-4">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center border border-primary/30 group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center border border-primary/30">
                       <service.icon size={18} className="sm:w-5 sm:h-5 text-primary" />
                     </div>
                     <ArrowUpRight 
                       size={16} 
-                      className="sm:w-4 sm:h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" 
+                      className="sm:w-4 sm:h-4 text-muted-foreground" 
                     />
                   </div>
-                  <h3 className="text-base sm:text-lg font-display mb-2 group-hover:text-primary transition-colors tracking-wider">
+                  <h3 className="text-base sm:text-lg font-display mb-2 tracking-wider">
                     {service.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-muted-foreground font-body leading-relaxed tracking-wide">
@@ -266,22 +258,14 @@ export const ServicesSection = () => {
                     />
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
 
           {/* Right side - Single Lanyard Card */}
           <div className="hidden lg:flex lg:col-span-1 relative z-10 w-full">
-            <motion.div 
+            <div 
               className="group relative w-full h-full min-h-[320px] max-h-[500px] overflow-hidden rounded-xl pointer-events-auto"
-              initial={{ opacity: 0, y: 30, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ 
-                duration: 0.8, 
-                delay: 0.4,
-                ease: [0.25, 0.46, 0.45, 0.94]
-              }}
             >
               {/* Background with gradient and glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-card/80 via-card/60 to-background rounded-xl border border-primary/30 shadow-[0_0_40px_rgba(255,215,0,0.1)]" />
@@ -292,33 +276,28 @@ export const ServicesSection = () => {
               {/* Inner glow effect */}
               <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent pointer-events-none" />
               
-              {/* Single Lanyard Component */}
-              <div className="relative w-full h-full flex flex-col items-center justify-center">
-                <motion.div 
-                  className="relative h-full w-full flex-1"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
+              {/* Placeholder Image */}
+              <div className="relative w-full h-full flex flex-col items-center justify-center p-6">
+                <div 
+                  className="relative w-full h-full flex items-center justify-center"
                 >
-                  <Lanyard 
-                    position={[0, 0, 20]} 
-                    gravity={[0, -40, 0]} 
-                    fov={20}
-                    transparent={true}
-                    cardImage={batmanSilhouette}
+                  <img 
+                    src={batmanSilhouette} 
+                    alt="Track Information" 
+                    className="w-full h-full object-contain rounded-lg shadow-2xl"
+                    style={{
+                      filter: 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.3))'
+                    }}
                   />
-                </motion.div>
+                </div>
                 
                 {/* QR Code Info */}
-                <p className="text-[9px] sm:text-[10px] text-muted-foreground/60 font-body tracking-wide italic mt-2 mb-2 text-center px-2">
-                  Scan this QR for more info regarding the tracks
+                <p className="text-[10px] sm:text-xs text-muted-foreground/80 font-body tracking-wide mt-4 text-center px-3">
+                  Scan QR for track details
                 </p>
               </div>
               
-              {/* Hover effect overlay */}
-              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-all duration-500 pointer-events-none rounded-xl" />
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

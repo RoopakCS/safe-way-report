@@ -20,9 +20,9 @@ interface LanyardProps {
 }
 
 export default function Lanyard({ 
-  position = [0, 0, 30], 
+  position = [0, 0, 12], 
   gravity = [0, -40, 0], 
-  fov = 20, 
+  fov = 35, 
   transparent = true,
   cardImage 
 }: LanyardProps) {
@@ -39,15 +39,16 @@ export default function Lanyard({
       <Canvas
         camera={{ position: position, fov: fov }}
         dpr={[1, isMobile ? 1 : 1.5]}
-        gl={{ alpha: transparent, antialias: !isMobile, powerPreference: 'high-performance' }}
+        gl={{ alpha: transparent, antialias: !isMobile }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
-        frameloop="demand"
+        frameloop="always"
       >
-        <ambientLight intensity={1.5} />
-        <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
-        <directionalLight position={[-5, 3, 5]} intensity={0.8} />
-        <pointLight position={[0, 4, 8]} intensity={1.5} color="#FFD700" />
-        <Physics gravity={gravity} timeStep={1 / 30}>
+        <ambientLight intensity={2.5} />
+        <directionalLight position={[5, 5, 5]} intensity={2} castShadow />
+        <directionalLight position={[-5, 3, 5]} intensity={1.5} />
+        <pointLight position={[0, 5, 5]} intensity={3} color="#FFD700" />
+        <spotLight position={[0, 8, 0]} intensity={2} angle={0.6} penumbra={1} />
+        <Physics gravity={gravity} timeStep={1 / 60}>
           <Band isMobile={isMobile} cardImage={cardImage} />
         </Physics>
         <Environment blur={0.5} preset="city">
@@ -200,16 +201,16 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage }: { ma
         //fixed.current.setType('fixed');
         fixed.current.setTranslation({ x: 0, y: 0, z: 0 });
       }
-      if (j1.current) j1.current.setTranslation({ x: 0.5, y: 0, z: 0 });
-      if (j2.current) j2.current.setTranslation({ x: 1, y: 0, z: 0 });
-      if (j3.current) j3.current.setTranslation({ x: 1.5, y: 0, z: 0 });
-      if (card.current) card.current.setTranslation({ x: 2, y: 0, z: 0 });
+      if (j1.current) j1.current.setTranslation({ x: 0, y: -0.4, z: 0 });
+      if (j2.current) j2.current.setTranslation({ x: 0, y: -0.9, z: 0 });
+      if (j3.current) j3.current.setTranslation({ x: 0, y: -1.4, z: 0 });
+      if (card.current) card.current.setTranslation({ x: 0, y: -2, z: 0 });
       
       // Initialize tube geometry
       if (band.current && curve) {
-        const segments = 16; // Reduced for performance
-        const radius = 0.06;
-        const radialSegments = 4; // Rectangular cross-section
+        const segments = 16;
+        const radius = 0.08;
+        const radialSegments = 6; // Rectangular cross-section
         tubeGeometryRef.current = new THREE.TubeGeometry(
           curve,
           segments,
@@ -283,9 +284,9 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage }: { ma
         if (band.current) {
           frameCount.current++;
           // Update geometry every frame for smooth following
-          const segments = 16; // Reduced for performance
-          const radius = 0.06; // Width of the rectangular strap
-          const radialSegments = 4; // Rectangular cross-section (4 sides = flat rectangle)
+          const segments = 16;
+          const radius = 0.08; // Width of the rectangular strap
+          const radialSegments = 6; // Rectangular cross-section (4 sides = flat rectangle)
           
           // Dispose old geometry if it exists
           if (tubeGeometryRef.current) {
@@ -321,24 +322,24 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false, cardImage }: { ma
 
   return (
     <>
-      <group position={[0, 4, 0]}>
+      <group position={[0, 2, 0]}>
         <RigidBody ref={fixed} type="fixed" position={[0, 0, 0]}>
           <BallCollider args={[0.05]} />
         </RigidBody>
-        <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
+        <RigidBody position={[0, -0.4, 0]} ref={j1} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps}>
+        <RigidBody position={[0, -0.9, 0]} ref={j2} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps}>
+        <RigidBody position={[0, -1.4, 0]} ref={j3} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[2, 0, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
-          <CuboidCollider args={[1.2, 0.8, 0.01]} />
+        <RigidBody position={[0, -2, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
+          <CuboidCollider args={[1.3, 0.9, 0.02]} />
           <group
-            scale={1.8}
-            position={[0, -0.8, -0.05]}
+            scale={2.0}
+            position={[0, -0.3, 0]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
             onPointerUp={(e: any) => {

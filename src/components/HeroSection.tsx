@@ -3,7 +3,6 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import batmanHero from "@/assets/batman-hero-new.jpg";
-import LightRays from "./LightRays";
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -32,32 +31,8 @@ export const HeroSection = () => {
         });
       }
 
-      // Parallax background (only on larger screens)
-      if (!isMobile) {
-        gsap.to(bgRef.current, {
-          y: "30%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1,
-          },
-        });
-
-        // Fade out content as we scroll
-        gsap.to(contentRef.current, {
-          opacity: 0,
-          y: -50,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1,
-          },
-        });
-      }
+      // Parallax disabled for better performance
+      // Removed for smoother scrolling experience
     }, sectionRef);
 
     // Refresh on resize
@@ -98,26 +73,11 @@ export const HeroSection = () => {
         />
         {/* Bottom gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-        
-        {/* Light Rays Effect - centered on Batman */}
-        <div className="absolute inset-0 opacity-70">
-          <LightRays
-            raysOrigin="top-center"
-            raysColor="#FFD700"
-            raysSpeed={1.5}
-            lightSpread={0.8}
-            rayLength={1.2}
-            followMouse={true}
-            mouseInfluence={0.1}
-            noiseAmount={0.1}
-            distortion={0.05}
-          />
-        </div>
       </div>
 
-      {/* Animated particles - reduced for performance */}
+      {/* Animated particles - minimal for performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(4)].map((_, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-primary/30 rounded-full animate-float"
@@ -144,21 +104,21 @@ export const HeroSection = () => {
           
           {/* Stats/Info boxes */}
           <div 
-            className="border-2 border-primary/30 bg-background/90 backdrop-blur-md p-6 min-w-[200px] hover:scale-105 hover:border-primary/60 transition-all duration-300"
+            className="border-2 border-primary/30 bg-background/90 backdrop-blur-md p-6 min-w-[200px]"
           >
             <div className="text-4xl font-display text-primary mb-2">24hrs</div>
             <div className="text-sm font-body text-muted-foreground tracking-wider">DURATION</div>
           </div>
 
           <div 
-            className="border-2 border-primary/30 bg-background/90 backdrop-blur-md p-6 min-w-[200px] hover:scale-105 hover:border-primary/60 transition-all duration-300"
+            className="border-2 border-primary/30 bg-background/90 backdrop-blur-md p-6 min-w-[200px]"
           >
             <div className="text-4xl font-display text-primary mb-2">₹35K+</div>
             <div className="text-sm font-body text-muted-foreground tracking-wider">PRIZE POOL</div>
           </div>
 
           <div 
-            className="border-2 border-primary/30 bg-background/90 backdrop-blur-md p-6 min-w-[200px] hover:scale-105 hover:border-primary/60 transition-all duration-300"
+            className="border-2 border-primary/30 bg-background/90 backdrop-blur-md p-6 min-w-[200px]"
           >
             <div className="text-4xl font-display text-primary mb-2">3</div>
             <div className="text-sm font-body text-muted-foreground tracking-wider">DOMAINS</div>

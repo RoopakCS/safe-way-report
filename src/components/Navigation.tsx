@@ -135,20 +135,51 @@ export const Navigation = () => {
               </ul>
               
               <motion.div 
-                className="mt-16 flex gap-8"
+                className="mt-16 flex gap-6 flex-wrap justify-center"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
               >
-                {["Twitter", "Instagram", "YouTube"].map((social) => (
-                  <a
-                    key={social}
-                    href="#"
-                    className="text-sm font-body text-muted-foreground hover:text-primary transition-colors link-underline tracking-wider"
-                  >
-                    {social}
-                  </a>
-                ))}
+                <a
+                  href="https://www.instagram.com/techsocietysec/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-body text-muted-foreground hover:text-primary transition-colors link-underline tracking-wider"
+                >
+                  Instagram
+                </a>
+                <a
+                  href="https://x.com/techsocietysec"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-body text-muted-foreground hover:text-primary transition-colors link-underline tracking-wider"
+                >
+                  Twitter
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/techsocietysec"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-body text-muted-foreground hover:text-primary transition-colors link-underline tracking-wider"
+                >
+                  LinkedIn
+                </a>
+                <a
+                  href="https://www.facebook.com/techsocietysec"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-body text-muted-foreground hover:text-primary transition-colors link-underline tracking-wider"
+                >
+                  Facebook
+                </a>
+                <a
+                  href="https://www.youtube.com/@techsocietysec"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-body text-muted-foreground hover:text-primary transition-colors link-underline tracking-wider"
+                >
+                  YouTube
+                </a>
               </motion.div>
             </div>
           </motion.div>
