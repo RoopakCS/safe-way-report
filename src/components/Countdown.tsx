@@ -61,7 +61,7 @@ export function Countdown({
                             className="flex flex-col items-center justify-center"
                         >
                             {/* Number */}
-                            <div className="mb-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white">
+                            <div className="mb-1 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal text-white">
                                 <NumberFlow
                                     trend={-1}
                                     value={value}

@@ -1,29 +1,11 @@
 .lanyard-wrapper {
   position: relative;
-  z-index: 1;
+  z-index: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Scale removed - let Framer Motion handle transforms */
+  transform: scale(1);
   transform-origin: center;
-  opacity: 1;
-  pointer-events: auto;
-  padding: 1rem;
-  /* No conflicting animations - all handled by Framer Motion parent */
-}
-
-.lanyard-wrapper canvas {
-  pointer-events: auto !important;
-  touch-action: none;
-  border-radius: 0.5rem;
-  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
-}
-
-@media (max-width: 768px) {
-  .lanyard-wrapper {
-    transform: scale(0.8);
-    padding: 0.5rem;
-  }
 }

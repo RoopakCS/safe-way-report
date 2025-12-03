@@ -76,8 +76,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative noise-overlay">
-      {/* Background Effects - Removed for better performance */}
-      
       <Navigation />
       <main className="relative z-10">
         <HeroSection />

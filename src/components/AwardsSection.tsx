@@ -122,7 +122,7 @@ export const AwardsSection = () => {
                       </div>
                     </div>
                     
-                    <h3 className="text-base sm:text-lg font-display mb-3 sm:mb-4 group-hover:text-primary transition-colors tracking-[0.1em] uppercase font-bold">
+                    <h3 className="text-base sm:text-lg font-body mb-3 sm:mb-4 group-hover:text-primary transition-colors tracking-[0.1em] uppercase font-light">
                       {prize.title}
                     </h3>
                     
@@ -163,7 +163,7 @@ export const AwardsSection = () => {
                 <div className="text-2xl sm:text-3xl md:text-4xl font-display text-primary font-bold mb-2 tracking-[0.05em]">
                   PARTICIPANT MERCHANDISE
                 </div>
-                <h3 className="text-sm sm:text-base font-display mb-3 sm:mb-4 text-muted-foreground tracking-[0.15em] uppercase font-semibold">
+                <h3 className="text-sm sm:text-base font-body mb-3 sm:mb-4 text-muted-foreground tracking-[0.15em] uppercase font-light">
                   Included for All Participants
                 </h3>
                 <p className="text-sm sm:text-base text-muted-foreground font-body tracking-wide leading-relaxed">

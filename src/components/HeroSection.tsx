@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, lazy, Suspense } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import batmanHero from "@/assets/batman-hero-new.jpg";
+
+const LightRays = lazy(() => import("@/components/LightRays"));
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -49,6 +51,26 @@ export const HeroSection = () => {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Yellow Glow - follows cursor, above Batman */}
+      <Suspense fallback={null}>
+        <div className="absolute inset-0 z-[5] pointer-events-none opacity-60">
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#d4a000"
+            raysSpeed={0.6}
+            lightSpread={1.3}
+            rayLength={1.2}
+            pulsating={false}
+            fadeDistance={1.0}
+            saturation={1.0}
+            followMouse={true}
+            mouseInfluence={0.25}
+            noiseAmount={0.03}
+            distortion={0.08}
+          />
+        </div>
+      </Suspense>
+
       {/* Background Image */}
       <div ref={bgRef} className="absolute inset-0">
         <div className="w-full h-full relative">

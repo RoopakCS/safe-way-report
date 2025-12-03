@@ -1,7 +1,7 @@
 import { ArrowUpRight, Shield, Brain, Sword, Eye, Cpu, Zap, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, lazy, Suspense } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
@@ -9,18 +9,9 @@ import ShinyText from "./ShinyText";
 import batmanLogo from "@/assets/hh26-logo.png";
 // Using batman-hero-new.jpg as placeholder - replace with batman-domains.jpg when available
 import batmanDomains from "@/assets/batman-hero-new.jpg";
-import batmanHero from "@/assets/batman-hero.jpg";
-// Import the two new Batman images for lanyard cards
-// Add these files to src/assets/:
-// - batman-silhouette.jpg (Batman with yellowish light and bats)
-// - batman-water.jpg (Batman in water with red cape)
-import batmanSilhouette from "@/assets/batman-silhouette.jpg";
-import batmanWater from "@/assets/batman-water.jpg";
-// Import additional images for more lanyard cards
-import image1 from "@/assets/1.jpg";
-import image2 from "@/assets/2.jpg";
-import image3 from "@/assets/3.jpg";
-import image4 from "@/assets/4.jpg";
+
+// Lazy load the Lanyard component for better performance
+const Lanyard = lazy(() => import("@/components/Lanyard"));
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -262,7 +253,7 @@ export const ServicesSection = () => {
             ))}
           </div>
 
-          {/* Right side - Single Lanyard Card */}
+          {/* Right side - 3D Lanyard Card */}
           <div className="hidden lg:flex lg:col-span-1 relative z-10 w-full">
             <div 
               className="group relative w-full h-full min-h-[320px] max-h-[500px] overflow-hidden rounded-xl pointer-events-auto"
@@ -276,26 +267,21 @@ export const ServicesSection = () => {
               {/* Inner glow effect */}
               <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent pointer-events-none" />
               
-              {/* Placeholder Image */}
-              <div className="relative w-full h-full flex flex-col items-center justify-center p-6">
-                <div 
-                  className="relative w-full h-full flex items-center justify-center"
-                >
-                  <img 
-                    src={batmanSilhouette} 
-                    alt="Track Information" 
-                    className="w-full h-full object-contain rounded-lg shadow-2xl"
-                    style={{
-                      filter: 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.3))'
-                    }}
-                  />
-                </div>
-                
-                {/* QR Code Info */}
-                <p className="text-[10px] sm:text-xs text-muted-foreground/80 font-body tracking-wide mt-4 text-center px-3">
-                  Scan QR for track details
-                </p>
+              {/* 3D Lanyard */}
+              <div className="relative w-full h-full">
+                <Suspense fallback={
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                  </div>
+                }>
+                  <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
+                </Suspense>
               </div>
+              
+              {/* QR Code Info */}
+              <p className="absolute bottom-4 left-0 right-0 text-[10px] sm:text-xs text-muted-foreground/80 font-body tracking-wide text-center px-3">
+                Drag the card to interact
+              </p>
               
             </div>
           </div>
