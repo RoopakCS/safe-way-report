@@ -3,11 +3,12 @@ import FallingText from "./FallingText";
 import "./FallingText.css";
 
 const navLinks = [
-  { name: "About", href: "#about" },
-  { name: "Prizes", href: "#prizes" },
-  { name: "Domains", href: "#domains" },
+  { name: "Mission", href: "#about" },
+  { name: "Rewards", href: "#prizes" },
+  { name: "Battlefields", href: "#domains" },
   { name: "Timeline", href: "#timeline" },
-  { name: "Sponsors", href: "#sponsors" },
+  { name: "Alliance", href: "#sponsors" },
+  { name: "FAQ", href: "#faq" },
 ];
 
 const socialLinks = [
@@ -36,8 +37,8 @@ export const Footer = () => {
                 </div>
               </div>
               <p className="text-sm sm:text-sm text-muted-foreground font-body max-w-sm tracking-wide leading-relaxed">
-                Join us for an epic 24-hour hackathon. Compete across three domains 
-                and create innovative solutions that shape the future.
+                A 36-hour offline innovation marathon to build solutions that secure our future. 
+                Join 500+ developers and answer the call.
               </p>
             </div>
             
@@ -83,7 +84,7 @@ export const Footer = () => {
               © Hack Hustle 2026. Saveetha Engineering College.
             </span>
             <span className="text-xs sm:text-xs font-body text-primary/60 tracking-[0.15em] sm:tracking-[0.2em]">
-              CODE THE FUTURE
+              THE SIGNAL IS LIT
             </span>
           </div>
 
@@ -96,8 +97,8 @@ export const Footer = () => {
             </div>
             <div className="h-[180px] sm:h-[200px] md:h-[250px] relative overflow-hidden" style={{ pointerEvents: 'auto' }}>
               <FallingText
-                text="GOTHAM KNIGHT JUSTICE DARK VIGILANTE HERO CODE HACK HUSTLE INNOVATE BUILD CREATE BATMAN SIGNAL NIGHT GUARDIAN PROTECT FUTURE TECH"
-                highlightWords={["GOTHAM", "KNIGHT", "BATMAN", "HACK", "HUSTLE", "CODE"]}
+                text="VIGILANTE PROTOCOL ALLIANCE SIGNAL LEGACY FORTRESS CODE HACK HUSTLE INNOVATE BUILD CREATE GUARDIAN PROTECT FUTURE TECH DEPLOY MISSION"
+                highlightWords={["VIGILANTE", "PROTOCOL", "ALLIANCE", "HACK", "HUSTLE", "CODE", "SIGNAL"]}
                 highlightClass="bat-highlight"
                 trigger="scroll"
                 backgroundColor="transparent"

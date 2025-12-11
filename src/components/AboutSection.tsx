@@ -78,7 +78,7 @@ export const AboutSection = () => {
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
           <div ref={textRef} className="order-2 lg:order-1 text-left">
             <span className="text-primary font-body text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] mb-2 sm:mb-3 block uppercase">
-              The Event
+              The Mission
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display leading-tight mb-4 sm:mb-6">
               HACK HUSTLE
@@ -87,14 +87,14 @@ export const AboutSection = () => {
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground font-body leading-relaxed mb-3 sm:mb-4 tracking-wide">
               <ShinyText 
-                text="Join us for an epic 24-hour hackathon where innovation meets competition. Battle across three cutting-edge domains and create solutions that shape the future." 
+                text="We don't need heroes in capes; we need heroes with code. Hack Hustle: Code Knight is the ultimate proving ground for the next generation of innovators. Organized by the Tech Society, this isn't just a hackathon—it's an incubator for resilience." 
                 disabled={false} 
                 speed={3} 
               />
             </p>
             <p className="text-sm sm:text-base text-muted-foreground font-body leading-relaxed tracking-wide">
               <ShinyText 
-                text="Choose your battlefield—FinTech, HealthTech, or EdTech—and compete for exciting prizes while building the next generation of technology." 
+                text="You have 36 hours to form your squad, choose your domain, and deploy a Minimum Viable Product (MVP) that solves real-world crises. Will you answer the call?" 
                 disabled={false} 
                 speed={3} 
               />
@@ -103,9 +103,9 @@ export const AboutSection = () => {
             {/* Countdown Timer */}
             <div className="mt-8">
               <p className="text-sm sm:text-base text-primary font-bold tracking-wide mb-4">
-                Ready to experience in
+                Deployment begins in
               </p>
-              <Countdown targetDate={new Date('2026-02-10T00:00:00')} />
+              <Countdown targetDate={new Date('2026-03-13T09:00:00+05:30')} />
             </div>
           </div>
           

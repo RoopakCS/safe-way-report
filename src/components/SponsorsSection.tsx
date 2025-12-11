@@ -60,16 +60,16 @@ export const SponsorsSection = () => {
           transition={{ duration: 0.8 }}
         >
           <span className="text-primary font-body text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] mb-2 sm:mb-3 block uppercase">
-            The Alliance
+            Strategic Partners
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display mb-3 sm:mb-4">
-            OUR SPONSORS
+            THE ALLIANCE
             <br />
             <span className="text-gradient">& PARTNERS</span>
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground font-body max-w-2xl mx-auto tracking-wide">
             <ShinyText 
-              text="Powering innovation through strategic partnerships and collaborative excellence" 
+              text="Powering innovation through strategic partnerships." 
               disabled={false} 
               speed={3} 
             />

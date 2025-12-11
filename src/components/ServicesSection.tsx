@@ -19,18 +19,18 @@ if (typeof window !== 'undefined') {
 
 const services = [
   {
-    title: "FinTech",
-    description: "Revolutionize the financial industry with innovative payment systems, blockchain solutions, and smart banking applications.",
+    title: "FinTech: The Economic Fortress",
+    description: "Secure the ledger. Build next-gen payment gateways, fraud detection systems, or decentralized finance (DeFi) solutions to protect the economy.",
     icon: Cpu,
   },
   {
-    title: "HealthTech",
-    description: "Transform healthcare delivery with telemedicine platforms, AI diagnostics, and patient management systems.",
+    title: "HealthTech: The Vital Line",
+    description: "Save lives with logic. Create telemedicine platforms, AI diagnostics, or mental health trackers to upgrade the human condition.",
     icon: Shield,
   },
   {
-    title: "EdTech",
-    description: "Shape the future of learning with interactive platforms, personalized education tools, and digital classrooms.",
+    title: "EdTech: The Knowledge Base",
+    description: "Empower the mind. Develop gamified learning, accessibility tools, or smart classroom interfaces to shape the future of education.",
     icon: Brain,
   },
 ];
@@ -198,16 +198,16 @@ export const ServicesSection = () => {
           className="mb-6 sm:mb-8 md:mb-10"
         >
           <span className="text-primary font-body text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] mb-2 sm:mb-3 block uppercase">
-            What We're Building
+            Choose Your Battlefield
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display">
-            DOMAINS
+            THE BATTLEFIELDS
             <br />
-            <span className="text-gradient">& INNOVATION</span>
+            <span className="text-gradient">& DOMAINS</span>
           </h2>
           <p className="mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground font-body max-w-xl tracking-wide">
             <ShinyText 
-              text="Choose your battlefield and create innovative solutions" 
+              text="Select your domain and deploy solutions that secure our future" 
               disabled={false} 
               speed={3} 
             />

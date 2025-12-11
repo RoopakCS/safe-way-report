@@ -2,31 +2,256 @@ import { ArrowUpRight, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import gothamRooftop from "@/assets/gotham-rooftop.jpg";
-import batSignal from "@/assets/bat-signal.jpg";
-import batmanHero from "@/assets/batman-hero.jpg";
+
+// SVG Icons for each milestone
+const BeaconIcon = () => (
+  <svg viewBox="0 0 100 100" className="w-full h-full" fill="none">
+    {/* Signal tower */}
+    <motion.path
+      d="M50 85 L40 50 L60 50 Z"
+      fill="hsl(var(--primary) / 0.3)"
+      stroke="hsl(var(--primary))"
+      strokeWidth="1.5"
+    />
+    {/* Signal waves */}
+    <motion.path
+      d="M50 45 Q35 35 50 25"
+      stroke="hsl(var(--primary))"
+      strokeWidth="2"
+      fill="none"
+      initial={{ opacity: 0, pathLength: 0 }}
+      animate={{ opacity: [0, 1, 0], pathLength: [0, 1, 1] }}
+      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+    />
+    <motion.path
+      d="M50 45 Q65 35 50 25"
+      stroke="hsl(var(--primary))"
+      strokeWidth="2"
+      fill="none"
+      initial={{ opacity: 0, pathLength: 0 }}
+      animate={{ opacity: [0, 1, 0], pathLength: [0, 1, 1] }}
+      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+    />
+    <motion.path
+      d="M50 35 Q30 20 50 5"
+      stroke="hsl(var(--primary) / 0.6)"
+      strokeWidth="1.5"
+      fill="none"
+      initial={{ opacity: 0, pathLength: 0 }}
+      animate={{ opacity: [0, 0.8, 0], pathLength: [0, 1, 1] }}
+      transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+    />
+    <motion.path
+      d="M50 35 Q70 20 50 5"
+      stroke="hsl(var(--primary) / 0.6)"
+      strokeWidth="1.5"
+      fill="none"
+      initial={{ opacity: 0, pathLength: 0 }}
+      animate={{ opacity: [0, 0.8, 0], pathLength: [0, 1, 1] }}
+      transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+    />
+    {/* Center glow */}
+    <motion.circle
+      cx="50"
+      cy="45"
+      r="5"
+      fill="hsl(var(--primary))"
+      animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.2, 1] }}
+      transition={{ duration: 1.5, repeat: Infinity }}
+    />
+  </svg>
+);
+
+const GateIcon = () => (
+  <svg viewBox="0 0 100 100" className="w-full h-full" fill="none">
+    {/* Gate frame */}
+    <path d="M15 20 L15 85 L85 85 L85 20" stroke="hsl(var(--primary))" strokeWidth="2.5" fill="none" />
+    {/* Top arch */}
+    <path d="M15 20 Q50 5 85 20" stroke="hsl(var(--primary))" strokeWidth="2.5" fill="none" />
+    
+    {/* Left gate door */}
+    <motion.g
+      animate={{ x: [0, -8, 0] }}
+      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <rect x="18" y="22" width="30" height="60" fill="hsl(var(--primary) / 0.15)" stroke="hsl(var(--primary) / 0.6)" strokeWidth="1.5" />
+      {/* Left door bars */}
+      <line x1="24" y1="22" x2="24" y2="82" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1" />
+      <line x1="33" y1="22" x2="33" y2="82" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1" />
+      <line x1="42" y1="22" x2="42" y2="82" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1" />
+      {/* Left door handle */}
+      <circle cx="44" cy="52" r="3" fill="hsl(var(--primary))" />
+    </motion.g>
+    
+    {/* Right gate door */}
+    <motion.g
+      animate={{ x: [0, 8, 0] }}
+      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <rect x="52" y="22" width="30" height="60" fill="hsl(var(--primary) / 0.15)" stroke="hsl(var(--primary) / 0.6)" strokeWidth="1.5" />
+      {/* Right door bars */}
+      <line x1="58" y1="22" x2="58" y2="82" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1" />
+      <line x1="67" y1="22" x2="67" y2="82" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1" />
+      <line x1="76" y1="22" x2="76" y2="82" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1" />
+      {/* Right door handle */}
+      <circle cx="56" cy="52" r="3" fill="hsl(var(--primary))" />
+    </motion.g>
+    
+    {/* Lock that appears when closed */}
+    <motion.g
+      animate={{ opacity: [0, 0, 1, 1, 0], scale: [0.5, 0.5, 1, 1, 0.5] }}
+      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <rect x="43" y="48" width="14" height="12" rx="2" fill="hsl(var(--primary))" />
+      <path d="M46 48 L46 43 Q50 38 54 43 L54 48" stroke="hsl(var(--primary))" strokeWidth="2.5" fill="none" />
+      <circle cx="50" cy="54" r="2" fill="hsl(var(--background))" />
+    </motion.g>
+  </svg>
+);
+
+const DeployIcon = () => (
+  <svg viewBox="0 0 100 100" className="w-full h-full" fill="none">
+    {/* Laptop/terminal */}
+    <rect x="15" y="35" width="70" height="45" rx="3" stroke="hsl(var(--primary))" strokeWidth="2" fill="hsl(var(--primary) / 0.1)" />
+    <rect x="20" y="40" width="60" height="32" fill="hsl(var(--background))" stroke="hsl(var(--primary) / 0.5)" strokeWidth="1" />
+    {/* Code lines */}
+    <motion.line
+      x1="25"
+      y1="48"
+      x2="45"
+      y2="48"
+      stroke="hsl(var(--primary))"
+      strokeWidth="2"
+      strokeLinecap="round"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: [0, 1, 1, 0] }}
+      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+    />
+    <motion.line
+      x1="25"
+      y1="55"
+      x2="55"
+      y2="55"
+      stroke="hsl(var(--primary) / 0.7)"
+      strokeWidth="2"
+      strokeLinecap="round"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: [0, 1, 1, 0] }}
+      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+    />
+    <motion.line
+      x1="25"
+      y1="62"
+      x2="40"
+      y2="62"
+      stroke="hsl(var(--primary) / 0.5)"
+      strokeWidth="2"
+      strokeLinecap="round"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: [0, 1, 1, 0] }}
+      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+    />
+    {/* 36h badge */}
+    <motion.g
+      animate={{ y: [0, -3, 0] }}
+      transition={{ duration: 2, repeat: Infinity }}
+    >
+      <circle cx="70" cy="25" r="12" fill="hsl(var(--primary))" />
+      <text x="70" y="29" textAnchor="middle" fontSize="10" fontWeight="bold" fill="hsl(var(--background))">36h</text>
+    </motion.g>
+    {/* Cursor blink */}
+    <motion.rect
+      x="58"
+      y="53"
+      width="2"
+      height="8"
+      fill="hsl(var(--primary))"
+      animate={{ opacity: [1, 0, 1] }}
+      transition={{ duration: 1, repeat: Infinity }}
+    />
+  </svg>
+);
+
+const VerdictIcon = () => (
+  <svg viewBox="0 0 100 100" className="w-full h-full" fill="none">
+    {/* Trophy */}
+    <motion.path
+      d="M35 30 L35 20 L65 20 L65 30 Q65 50 50 55 Q35 50 35 30 Z"
+      fill="hsl(var(--primary) / 0.2)"
+      stroke="hsl(var(--primary))"
+      strokeWidth="2"
+      animate={{ filter: ["drop-shadow(0 0 5px hsl(var(--primary)))", "drop-shadow(0 0 15px hsl(var(--primary)))", "drop-shadow(0 0 5px hsl(var(--primary)))"] }}
+      transition={{ duration: 2, repeat: Infinity }}
+    />
+    {/* Trophy handles */}
+    <path d="M35 25 Q25 25 25 35 Q25 45 35 45" stroke="hsl(var(--primary))" strokeWidth="2" fill="none" />
+    <path d="M65 25 Q75 25 75 35 Q75 45 65 45" stroke="hsl(var(--primary))" strokeWidth="2" fill="none" />
+    {/* Trophy base */}
+    <rect x="42" y="55" width="16" height="8" fill="hsl(var(--primary) / 0.3)" stroke="hsl(var(--primary))" strokeWidth="1.5" />
+    <rect x="38" y="63" width="24" height="5" fill="hsl(var(--primary) / 0.3)" stroke="hsl(var(--primary))" strokeWidth="1.5" />
+    <rect x="34" y="68" width="32" height="8" fill="hsl(var(--primary) / 0.3)" stroke="hsl(var(--primary))" strokeWidth="1.5" />
+    {/* Star */}
+    <motion.path
+      d="M50 28 L52 34 L58 34 L53 38 L55 44 L50 40 L45 44 L47 38 L42 34 L48 34 Z"
+      fill="hsl(var(--primary))"
+      animate={{ scale: [1, 1.15, 1], opacity: [0.8, 1, 0.8] }}
+      transition={{ duration: 1.5, repeat: Infinity }}
+      style={{ transformOrigin: "50px 36px" }}
+    />
+    {/* Sparkles */}
+    <motion.circle
+      cx="30"
+      cy="20"
+      r="2"
+      fill="hsl(var(--primary))"
+      animate={{ opacity: [0, 1, 0], scale: [0.5, 1, 0.5] }}
+      transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}
+    />
+    <motion.circle
+      cx="70"
+      cy="18"
+      r="2"
+      fill="hsl(var(--primary))"
+      animate={{ opacity: [0, 1, 0], scale: [0.5, 1, 0.5] }}
+      transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
+    />
+    <motion.circle
+      cx="75"
+      cy="50"
+      r="1.5"
+      fill="hsl(var(--primary))"
+      animate={{ opacity: [0, 1, 0], scale: [0.5, 1, 0.5] }}
+      transition={{ duration: 1.5, repeat: Infinity, delay: 1 }}
+    />
+  </svg>
+);
+
+const milestoneIcons = [BeaconIcon, GateIcon, DeployIcon, VerdictIcon];
 
 const milestones = [
   {
-    title: "Registration Opens",
-    category: "01ST OCTOBER 2024",
-    status: "Start",
-    image: gothamRooftop,
-    description: "Mark your calendars and gather your team. The journey begins here.",
+    title: "The Beacon Lit",
+    category: "DEC 19, 2025",
+    status: "Registration Opens",
+    description: "The signal is lit. Registration opens for all vigilante coders.",
   },
   {
-    title: "Hackathon Starts",
-    category: "08TH NOVEMBER 2024",
-    status: "24 Hours",
-    image: batSignal,
-    description: "24 hours of intense coding, innovation, and collaboration.",
+    title: "Gate Closure",
+    category: "FEB 14, 2026",
+    status: "Team Formation",
+    description: "Registration ends. Form your squad and prepare for deployment.",
   },
   {
-    title: "Final Presentations",
-    category: "09TH NOVEMBER 2024",
+    title: "Deployment",
+    category: "MAR 13, 2026",
+    status: "36 Hours",
+    description: "The hackathon begins at 09:00 AM. 36 hours of intense innovation.",
+  },
+  {
+    title: "The Verdict",
+    category: "MAR 15, 2026",
     status: "Winners",
-    image: batmanHero,
-    description: "Present your solutions and compete for the ultimate glory.",
+    description: "Final pitches and prize distribution. The city's fate is decided.",
   },
 ];
 
@@ -68,12 +293,12 @@ export const WorkSection = () => {
         >
           <div>
             <span className="text-primary font-body text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] mb-2 sm:mb-3 block uppercase">
-              Event Schedule
+              Operation Timeline
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display">
               TIMELINE
               <br />
-              <span className="text-gradient">& MILESTONES</span>
+              <span className="text-gradient">& OPERATIONS</span>
             </h2>
           </div>
           <a
@@ -85,15 +310,17 @@ export const WorkSection = () => {
           </a>
         </motion.div>
 
-        <div className={`grid gap-3 sm:gap-4 lg:gap-6 transition-all duration-700 ease-in-out ${expandedCard !== null && !isMobile ? 'grid-cols-1' : 'sm:grid-cols-2 lg:grid-cols-3'}`}>
-          {milestones.map((milestone, index) => (
+        <div className={`grid gap-3 sm:gap-4 lg:gap-6 transition-all duration-700 ease-in-out ${expandedCard !== null && !isMobile ? 'grid-cols-1' : 'grid-cols-2 lg:grid-cols-4'}`}>
+          {milestones.map((milestone, index) => {
+            const IconComponent = milestoneIcons[index];
+            return (
             <motion.div
               key={milestone.title}
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.15 }}
               onClick={() => handleCardClick(index)}
-              className={`group relative overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${
+              className={`group relative overflow-hidden cursor-pointer transition-all duration-700 ease-in-out bg-gradient-to-b from-card via-card/90 to-background ${
                 expandedCard === null 
                   ? 'aspect-[3/4]' 
                   : expandedCard === index 
@@ -115,22 +342,21 @@ export const WorkSection = () => {
                 className="absolute left-0 top-0 bottom-0 w-1 bg-primary z-20 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"
               />
 
-              {/* Image - hidden on mobile when expanded */}
-              <img
-                src={milestone.image}
-                alt={milestone.title}
-                className={`absolute inset-0 object-cover transition-all duration-700 ease-in-out ${
-                  expandedCard === index 
-                    ? isMobile 
-                      ? 'hidden' 
-                      : 'w-1/2 h-full group-hover:scale-105'
-                    : 'w-full h-full group-hover:scale-110'
-                }`}
-                loading="lazy"
-              />
+              {/* SVG Icon Background */}
+              <div className={`absolute inset-0 flex items-center justify-center p-8 transition-all duration-700 ease-in-out ${
+                expandedCard === index 
+                  ? isMobile 
+                    ? 'hidden' 
+                    : 'w-1/2'
+                  : 'w-full'
+              }`}>
+                <div className="w-full h-full max-w-[180px] max-h-[180px] opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">
+                  <IconComponent />
+                </div>
+              </div>
               
-              {/* Overlay - hidden on mobile when expanded */}
-              <div className={`absolute inset-0 bg-gradient-to-t from-bat-black via-bat-black/60 to-bat-black/20 group-hover:via-bat-black/70 transition-all duration-700 ease-in-out ${
+              {/* Overlay gradient */}
+              <div className={`absolute inset-0 bg-gradient-to-t from-bat-black via-bat-black/40 to-transparent group-hover:via-bat-black/50 transition-all duration-700 ease-in-out ${
                 expandedCard === index 
                   ? isMobile 
                     ? 'hidden' 
@@ -248,7 +474,8 @@ export const WorkSection = () => {
                 className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-scan"
               />
             </motion.div>
-          ))}
+          );
+          })}
         </div>
 
         {/* Timeline dots */}

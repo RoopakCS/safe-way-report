@@ -195,30 +195,6 @@
   }
 }
 
-@keyframes lightning-flash {
-  0%, 100% {
-    opacity: 0;
-  }
-  5%, 10% {
-    opacity: 0.8;
-  }
-  7% {
-    opacity: 0;
-  }
-}
-
-@keyframes cape-flow {
-  0%, 100% {
-    transform: skewX(0deg) translateY(0);
-  }
-  25% {
-    transform: skewX(-2deg) translateY(-5px);
-  }
-  75% {
-    transform: skewX(2deg) translateY(5px);
-  }
-}
-
 @keyframes glitch {
   0%, 90%, 100% {
     transform: translate(0);
@@ -239,32 +215,6 @@
   98% {
     transform: translate(1px, 1px);
     filter: hue-rotate(45deg);
-  }
-}
-
-@keyframes reveal-text {
-  0% {
-    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-  }
-  100% {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-}
-
-@keyframes rain {
-  0% {
-    transform: translateY(-100vh);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh);
-    opacity: 0;
   }
 }
 
@@ -304,20 +254,8 @@
   will-change: opacity, transform;
 }
 
-.animate-lightning {
-  animation: lightning-flash 8s ease-in-out infinite;
-}
-
-.animate-cape {
-  animation: cape-flow 6s ease-in-out infinite;
-}
-
 .animate-glitch {
   animation: glitch 5s ease-in-out infinite;
-}
-
-.animate-reveal {
-  animation: reveal-text 1s ease-out forwards;
 }
 
 .animate-marquee {
@@ -328,26 +266,6 @@
 .animate-float {
   animation: float 6s ease-in-out infinite;
   will-change: transform;
-}
-
-/* Rain Effect - optimized */
-.rain-container {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  overflow: hidden;
-  contain: strict;
-}
-
-.rain-drop {
-  position: absolute;
-  width: 1px;
-  height: 50px;
-  background: linear-gradient(transparent, hsl(var(--bat-gold) / 0.3));
-  animation: rain 1s linear infinite;
-  will-change: transform;
-  contain: layout paint;
 }
 
 /* Custom scrollbar */

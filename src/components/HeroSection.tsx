@@ -2,9 +2,9 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, lazy, Suspense } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import batmanHero from "@/assets/batman-hero-new.jpg";
 
 const LightRays = lazy(() => import("@/components/LightRays"));
+const CityScape = lazy(() => import("@/components/CityScape"));
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -71,31 +71,20 @@ export const HeroSection = () => {
         </div>
       </Suspense>
 
-      {/* Background Image */}
-      <div ref={bgRef} className="absolute inset-0">
-        <div className="w-full h-full relative">
-          <img
-            src={batmanHero}
-            alt="Batman overlooking Gotham"
-            className="absolute inset-0 w-full h-full object-cover object-[50%_20%] sm:object-[55%_center] md:object-[60%_center] lg:object-[65%_center]"
-            loading="eager"
-          />
-        </div>
-        {/* Left gradient - covers left side more heavily */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/30 to-transparent" 
-             style={{ 
-               background: 'linear-gradient(to right, hsl(var(--background)) 0%, hsl(var(--background) / 0.9) 25%, transparent 50%)' 
-             }} 
-        />
-        {/* Right gradient - covers right side more heavily */}
+      {/* Background - solid dark with subtle gradient */}
+      <div ref={bgRef} className="absolute inset-0 bg-background">
+        {/* Subtle radial gradient for depth */}
         <div className="absolute inset-0" 
              style={{ 
-               background: 'linear-gradient(to left, hsl(var(--background)) 0%, hsl(var(--background) / 0.9) 12%, transparent 35%)' 
+               background: 'radial-gradient(ellipse at 30% 50%, hsl(var(--primary) / 0.05) 0%, transparent 50%)' 
              }} 
         />
-        {/* Bottom gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
       </div>
+
+      {/* City Skyline Silhouette with Parallax */}
+      <Suspense fallback={null}>
+        <CityScape className="z-[2]" />
+      </Suspense>
 
       {/* Animated particles - minimal for performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -128,7 +117,7 @@ export const HeroSection = () => {
           <div 
             className="border-2 border-primary/30 bg-background/90 backdrop-blur-md p-6 min-w-[200px]"
           >
-            <div className="text-4xl font-display text-primary mb-2">24hrs</div>
+            <div className="text-4xl font-display text-primary mb-2">36hrs</div>
             <div className="text-sm font-body text-muted-foreground tracking-wider">DURATION</div>
           </div>
 
@@ -159,7 +148,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.8 }}
           >
             <span className="inline-block mb-6 sm:mb-8 px-4 sm:px-6 py-2 border border-primary/40 rounded-none text-[10px] sm:text-xs font-body text-primary tracking-[0.3em] sm:tracking-[0.4em] uppercase bg-background/80 backdrop-blur-sm">
-              10TH FEBRUARY 2026
+              MARCH 13-15, 2026
             </span>
           </motion.div>
           
@@ -186,7 +175,16 @@ export const HeroSection = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            Saveetha Engineering College, Chennai
+            The Signal Is Lit. The City Awaits.
+          </motion.p>
+
+          <motion.p 
+            className="mt-4 max-w-lg text-xs sm:text-sm font-body text-muted-foreground/60 leading-relaxed tracking-wide"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+          >
+            A 36-hour offline innovation marathon to build solutions that secure our future. Join 500+ developers at Saveetha Engineering College. The system is broken—come fix it.
           </motion.p>
 
           <motion.div 
@@ -200,14 +198,14 @@ export const HeroSection = () => {
               className="group inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 bg-primary text-primary-foreground font-display text-base sm:text-lg tracking-wider hover:scale-105 transition-transform duration-300 glow-gold"
               whileHover={{ boxShadow: "0 0 80px hsl(45 100% 50% / 0.5)" }}
             >
-              <span>View Prizes</span>
+              <span>View Rewards</span>
             </motion.a>
             <motion.a
               href="#contact"
               className="group inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 border border-foreground/30 text-foreground font-display text-base sm:text-lg tracking-wider hover:border-primary hover:text-primary transition-all duration-300 bg-background/50 backdrop-blur-sm"
               whileHover={{ borderColor: "hsl(45 100% 50%)" }}
             >
-              <span>Register Now</span>
+              <span>Initiate Protocol</span>
             </motion.a>
           </motion.div>
         </div>

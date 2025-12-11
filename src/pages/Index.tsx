@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
+import { Footer } from "@/components/Footer";
 
 // Lazy load heavy components for better initial performance
 const AboutSection = lazy(() => import("@/components/AboutSection").then(m => ({ default: m.AboutSection })));
@@ -12,8 +13,8 @@ const WorkSection = lazy(() => import("@/components/WorkSection").then(m => ({ d
 const MarqueeSection = lazy(() => import("@/components/MarqueeSection").then(m => ({ default: m.MarqueeSection })));
 const AwardsSection = lazy(() => import("@/components/AwardsSection").then(m => ({ default: m.AwardsSection })));
 const SponsorsSection = lazy(() => import("@/components/SponsorsSection").then(m => ({ default: m.SponsorsSection })));
+const FAQSection = lazy(() => import("@/components/FAQSection").then(m => ({ default: m.FAQSection })));
 const GallerySection = lazy(() => import("@/components/GallerySection").then(m => ({ default: m.GallerySection })));
-const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -86,12 +87,11 @@ const Index = () => {
           <WorkSection />
           <MarqueeSection />
           <SponsorsSection />
+          <FAQSection />
           <GallerySection />
         </Suspense>
       </main>
-      <Suspense fallback={<SectionLoader />}>
-        <Footer />
-      </Suspense>
+      <Footer />
     </div>
   );
 };

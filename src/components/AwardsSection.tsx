@@ -7,17 +7,17 @@ import ShinyText from "./ShinyText";
 const prizes = [
   { 
     amount: "₹20,000", 
-    title: "Grand Winner", 
-    description: "The ultimate champion takes home the grand prize. Recognition, glory, and rewards await.",
+    title: "The Dark Knight", 
+    description: "The ultimate champion. Trophy, Internship Opportunities, and Devfolio Swag await the victor.",
     icon: Trophy,
-    rank: "1ST"
+    rank: "WINNER"
   },
   { 
     amount: "₹15,000", 
-    title: "First Runner-Up", 
-    description: "Excellence deserves recognition. Second place earns significant rewards.",
+    title: "The Crusader", 
+    description: "Excellence recognized. Certificates and Premium Merchandise for the runner-up.",
     icon: Award,
-    rank: "2ND"
+    rank: "RUNNER UP"
   },
 ];
 
@@ -64,16 +64,16 @@ export const AwardsSection = () => {
           transition={{ duration: 0.8 }}
         >
           <span className="text-primary font-body text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] mb-2 sm:mb-3 block uppercase">
-            The Rewards
+            Bounties & Recognition
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display mb-2 sm:mb-3">
-            PRIZES &amp;
+            THE BOUNTIES
             <br />
-            <span className="text-gradient">RECOGNITION</span>
+            <span className="text-gradient">& REWARDS</span>
           </h2>
           <p className="mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground font-body max-w-xl mx-auto tracking-wide">
             <ShinyText 
-              text="Compete for exciting prizes and recognition across all domains." 
+              text="Honor and rewards await those who answer the call." 
               disabled={false} 
               speed={3} 
             />
@@ -161,14 +161,14 @@ export const AwardsSection = () => {
               
               <div className="flex-1 min-w-0">
                 <div className="text-2xl sm:text-3xl md:text-4xl font-display text-primary font-bold mb-2 tracking-[0.05em]">
-                  PARTICIPANT MERCHANDISE
+                  SURVIVAL KIT
                 </div>
                 <h3 className="text-sm sm:text-base font-body mb-3 sm:mb-4 text-muted-foreground tracking-[0.15em] uppercase font-light">
-                  Included for All Participants
+                  Every Coder's Arsenal
                 </h3>
                 <p className="text-sm sm:text-base text-muted-foreground font-body tracking-wide leading-relaxed">
                   <ShinyText 
-                    text="Exclusive event merchandise, branded apparel, collectible items, and premium accessories. Every participant receives a curated package regardless of competition results." 
+                    text="Every vigilante receives a Survival Kit: T-Shirt, Stickers, 36-Hour Food Supply, and Certificate of Participation. No one fights alone." 
                     disabled={false} 
                     speed={3} 
                   />

@@ -6,12 +6,13 @@ import batmanLogo from "@/assets/hh26-logo.png";
 import backgroundMusic from "@/assets/background-music.mp3.mp3";
 
 const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Prizes", href: "#prizes" },
-  { label: "Domains", href: "#domains" },
+  { label: "Mission", href: "#about" },
+  { label: "Battlefields", href: "#domains" },
   { label: "Timeline", href: "#timeline" },
-  { label: "Sponsors", href: "#sponsors" },
-  { label: "Team", href: "/team" },
+  { label: "The Syndicate", href: "/team" },
+  { label: "Rewards", href: "#prizes" },
+  { label: "The Alliance", href: "#sponsors" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export const Navigation = () => {
