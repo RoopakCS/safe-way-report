@@ -121,6 +121,25 @@ export const ServicesSection = () => {
 
   return (
     <section id="domains" className="py-12 sm:py-16 md:py-20 relative overflow-hidden" ref={ref}>
+      {/* Atmospheric background gradients */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Center radial glow */}
+        <div className="absolute inset-0" 
+             style={{ 
+               background: 'radial-gradient(ellipse at 50% 30%, hsl(var(--primary) / 0.08) 0%, transparent 50%)' 
+             }} 
+        />
+        {/* Top gradient fade */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-transparent h-1/3" />
+        {/* Bottom gradient fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-background to-transparent" />
+        {/* Side accent */}
+        <div className="absolute inset-0" 
+             style={{ 
+               background: 'radial-gradient(ellipse at 80% 60%, hsl(var(--primary) / 0.05) 0%, transparent 40%)' 
+             }} 
+        />
+      </div>
       {/* Background Batman Image with Parallax Effect */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div
@@ -260,6 +279,16 @@ export const ServicesSection = () => {
             >
               {/* Background with gradient and glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-card/80 via-card/60 to-background rounded-xl border border-primary/30 shadow-[0_0_40px_rgba(255,215,0,0.1)]" />
+              
+              {/* Interior gradient effects */}
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/15 via-transparent to-primary/5" />
+              <div 
+                className="absolute inset-0 rounded-xl" 
+                style={{ 
+                  background: 'radial-gradient(ellipse at 50% 40%, hsl(var(--primary) / 0.2) 0%, transparent 55%)' 
+                }} 
+              />
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-primary/10 via-transparent to-transparent" />
               
               {/* Gold accent glow */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary/60 to-transparent" />

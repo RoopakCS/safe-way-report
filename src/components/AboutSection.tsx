@@ -114,6 +114,15 @@ export const AboutSection = () => {
             className="relative order-1 lg:order-2"
           >
             <div className="aspect-square rounded-none bg-gradient-to-br from-bat-dark to-bat-black overflow-hidden relative group gotham-card">
+              {/* Interior gradient effects */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/8 via-transparent to-transparent" />
+              <div 
+                className="absolute inset-0" 
+                style={{ 
+                  background: 'radial-gradient(ellipse at 50% 50%, hsl(var(--primary) / 0.15) 0%, transparent 60%)' 
+                }} 
+              />
               <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors duration-500" />
               
               {/* Batman logo center */}

@@ -71,14 +71,28 @@ export const HeroSection = () => {
         </div>
       </Suspense>
 
-      {/* Background - solid dark with subtle gradient */}
+      {/* Background - dark with atmospheric gradients */}
       <div ref={bgRef} className="absolute inset-0 bg-background">
-        {/* Subtle radial gradient for depth */}
+        {/* Main radial gradient - center glow */}
         <div className="absolute inset-0" 
              style={{ 
-               background: 'radial-gradient(ellipse at 30% 50%, hsl(var(--primary) / 0.05) 0%, transparent 50%)' 
+               background: 'radial-gradient(ellipse at 50% 50%, hsl(var(--primary) / 0.08) 0%, transparent 45%)' 
              }} 
         />
+        {/* Top-left accent gradient */}
+        <div className="absolute inset-0" 
+             style={{ 
+               background: 'radial-gradient(ellipse at 20% 20%, hsl(var(--primary) / 0.06) 0%, transparent 40%)' 
+             }} 
+        />
+        {/* Bottom-right accent gradient */}
+        <div className="absolute inset-0" 
+             style={{ 
+               background: 'radial-gradient(ellipse at 80% 80%, hsl(var(--primary) / 0.05) 0%, transparent 35%)' 
+             }} 
+        />
+        {/* Vertical gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background/80" />
       </div>
 
       {/* City Skyline Silhouette with Parallax */}
